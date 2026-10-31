@@ -26,6 +26,8 @@ function modelos(): string[] {
     .filter(Boolean);
 }
 
+const esGratuito = (m: string) => m.endsWith(":free");
+
 /** Algunos modelos envuelven el JSON en ```json … ``` aunque se pida json_schema. */
 function extraerJson(texto: string): unknown {
   const limpio = texto.trim().replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "");
@@ -117,8 +119,11 @@ async function llamarUnaVez<T>(
 
 /**
  * Llama a OpenRouter con salida estructurada y valida con zod.
- * Si la respuesta no es válida, reintenta una vez. Los errores de cupo, saldo
- * y timeout no se reintentan.
+ * - Si la respuesta no es válida, reintenta una vez.
+ * - Si un modelo pago se queda sin saldo (402) o con el cupo lleno (429), OpenRouter no pasa
+ *   solo al siguiente de la lista: se reintenta una vez únicamente con los modelos gratuitos
+ *   de OPENROUTER_MODELS, para no perder la tasación.
+ * - Los timeouts no se reintentan.
  */
 export async function completarEstructurado<T>(pedido: Pedido<T>): Promise<T> {
   const apiKey = process.env.OPENROUTER_API_KEY;
@@ -131,12 +136,17 @@ export async function completarEstructurado<T>(pedido: Pedido<T>): Promise<T> {
     return await llamarUnaVez(pedido, apiKey, models, TIMEOUT_MS);
   } catch (err) {
     const restante = PRESUPUESTO_TOTAL_MS - (Date.now() - inicio);
-    if (
-      err instanceof ServiceError &&
-      err.codigo === "ia_respuesta_invalida" &&
-      restante >= TIMEOUT_MINIMO_REINTENTO_MS
-    ) {
-      return llamarUnaVez(pedido, apiKey, models, Math.min(TIMEOUT_MS, restante));
+    if (!(err instanceof ServiceError) || restante < TIMEOUT_MINIMO_REINTENTO_MS) throw err;
+    const timeout = Math.min(TIMEOUT_MS, restante);
+
+    const gratuitos = models.filter(esGratuito);
+    const hayPagos = gratuitos.length < models.length;
+    if ((err.codigo === "ia_sin_saldo" || err.codigo === "ia_limite") && hayPagos && gratuitos.length > 0) {
+      console.warn(`[openrouter] ${err.codigo} con el modelo pago: se reintenta con ${gratuitos.join(", ")}`);
+      return llamarUnaVez(pedido, apiKey, gratuitos, timeout);
+    }
+    if (err.codigo === "ia_respuesta_invalida") {
+      return llamarUnaVez(pedido, apiKey, models, timeout);
     }
     throw err;
   }

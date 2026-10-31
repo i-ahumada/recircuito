@@ -33,7 +33,7 @@ Se usa el campo `models` de OpenRouter para el fallback automático: si el prime
 - **Testing (sin créditos):** `OPENROUTER_MODELS=nvidia/nemotron-3.5-super-vl:free`
 - **Producción (con créditos):** `OPENROUTER_MODELS=google/gemini-3.5-flash-lite,nvidia/nemotron-3.5-super-vl:free`
 
-> ⚠️ **En testing no incluyas modelos pagos en la lista.** Sin saldo, OpenRouter devuelve un **error 402** en lugar de pasar al siguiente modelo, y la tasación falla.
+> Si el modelo pago se queda sin saldo, OpenRouter devuelve un **error 402** y no pasa solo al siguiente modelo. Para eso la app reintenta una vez **solo con los modelos gratuitos** de la lista (los que terminan en `:free`). Lo mismo con un 429 (cupo lleno). Por eso conviene que la lista de producción termine siempre con un modelo gratuito.
 
 Verificá que los IDs sigan existiendo en https://openrouter.ai/models antes de la demo.
 
