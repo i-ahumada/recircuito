@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import type { Borrador } from "@/lib/schemas";
+import { formatoARS, formatoRango } from "./formato";
 import styles from "./Tasador.module.css";
 
 const CATEGORIAS = ["celular", "notebook", "tablet", "consola", "monitor", "accesorio", "audio", "otro"];
@@ -12,7 +13,15 @@ const ESTADOS = [
   "No enciende (valor de repuestos)",
 ];
 
-export function BorradorEditable({ inicial }: { inicial: Borrador }) {
+type Props = {
+  inicial: Borrador;
+  /** Rango estimado por el tasador; null si el equipo no tiene precio de referencia. */
+  rango: { minARS: number; maxARS: number } | null;
+  precio: number | null;
+  onPrecio: (precio: number | null) => void;
+};
+
+export function BorradorEditable({ inicial, rango, precio, onPrecio }: Props) {
   const [borrador, setBorrador] = useState(inicial);
   const id = useId();
   const set = (campo: keyof Borrador) => (e: { target: { value: string } }) =>
@@ -33,6 +42,33 @@ export function BorradorEditable({ inicial }: { inicial: Borrador }) {
       <div className={styles.campo}>
         <label htmlFor={`${id}-d`}>Descripción</label>
         <textarea id={`${id}-d`} value={borrador.descripcion} onChange={set("descripcion")} rows={5} maxLength={600} />
+      </div>
+      <div className={styles.campo}>
+        <label htmlFor={`${id}-p`}>Precio de publicación</label>
+        <div className={styles.precioInput}>
+          <span aria-hidden="true">$</span>
+          <input
+            id={`${id}-p`}
+            type="number"
+            inputMode="numeric"
+            min={0}
+            step={1000}
+            value={precio ?? ""}
+            placeholder="Ej.: 150000"
+            aria-describedby={`${id}-p-ayuda`}
+            onChange={(e) => {
+              const n = e.target.valueAsNumber;
+              onPrecio(Number.isFinite(n) && n >= 0 ? Math.round(n) : null);
+            }}
+          />
+        </div>
+        <p id={`${id}-p-ayuda`} className={styles.campoAyuda}>
+          {rango
+            ? `Lo elegís vos. Estimamos entre ${formatoRango(rango.minARS, rango.maxARS)}.`
+            : "Lo elegís vos: no tenemos datos de mercado para este equipo."}
+          {rango && precio !== null && precio > rango.maxARS && " Por encima del rango puede tardar más en venderse."}
+          {rango && precio !== null && precio > 0 && precio < rango.minARS && ` Está por debajo de lo estimado (${formatoARS(rango.minARS)}).`}
+        </p>
       </div>
       <div className={styles.campos2}>
         <div className={styles.campo}>

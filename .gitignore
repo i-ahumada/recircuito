@@ -10,3 +10,6 @@ next-env.d.ts
 # (src/data/precios-referencia.json y src/data/puntos-descarte.json) sí se versionan.
 src/data/ba_residuos/
 src/data/precios/
+
+# Respaldo de la lista de espera cuando no hay Apps Script: tiene emails, no se versiona.
+/data/

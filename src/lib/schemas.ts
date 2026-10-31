@@ -158,6 +158,13 @@ export const waitlistRequestSchema = z.object({
   origen: origenSchema,
   dispositivo: z.string().max(120).optional(),
   rango: z.string().max(60).optional(),
+  /** Precio que la persona eligió para publicar, en ARS. */
+  precioARS: z
+    .number("Revisá el precio")
+    .int("El precio tiene que ser un número entero")
+    .min(0, "El precio no puede ser negativo")
+    .max(100_000_000, "Revisá el precio: es demasiado alto")
+    .optional(),
   acepta: z.literal(true).optional(),
 });
 export type WaitlistRequest = z.infer<typeof waitlistRequestSchema>;
