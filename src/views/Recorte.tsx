@@ -17,6 +17,8 @@ type Props = {
   className?: string;
   /** Desvanece los bordes contra el fondo. "fuerte" para imágenes cuyo fondo es más oscuro que la página. */
   fundido?: boolean | "fuerte";
+  /** Marca la imagen como lugar donde un brote del hilo puede pasar por detrás (ver Hilo.tsx). */
+  brote?: boolean;
   children?: React.ReactNode;
 };
 
@@ -24,7 +26,19 @@ type Props = {
  * Muestra solo la parte de la imagen que tiene contenido. Las imágenes tienen mucho
  * fondo vacío; en lugar de editarlas, se recortan con CSS.
  */
-export function Recorte({ src, alt, width, height, caja, sizes, priority, className, fundido = true, children }: Props) {
+export function Recorte({
+  src,
+  alt,
+  width,
+  height,
+  caja,
+  sizes,
+  priority,
+  className,
+  fundido = true,
+  brote,
+  children,
+}: Props) {
   const [x0, y0, x1, y1] = caja;
   const anchoPct = x1 - x0;
   const altoPct = y1 - y0;
@@ -39,6 +53,7 @@ export function Recorte({ src, alt, width, height, caja, sizes, priority, classN
     <div
       className={`${styles.recorte} ${fundido === "fuerte" ? "fundido fundidoFuerte" : fundido ? "fundido" : ""} ${className ?? ""}`}
       style={style}
+      {...(brote ? { "data-brote": "" } : {})}
     >
       <Image
         src={src}

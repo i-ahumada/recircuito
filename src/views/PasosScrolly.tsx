@@ -61,7 +61,7 @@ export function PasosScrolly({ pasos }: { pasos: Paso[] }) {
         ))}
       </ol>
 
-      <div className={styles.fija} aria-hidden="true">
+      <div className={styles.fija} data-brote aria-hidden="true">
         {pasos.map((p, i) => (
           <div key={p.img} className={styles.fijaImg} data-activa={i === activo}>
             <Recorte src={p.img} alt="" width={800} height={800} caja={p.caja} sizes="60vw" />

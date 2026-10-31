@@ -4,7 +4,8 @@
   left: 0;
   width: 100%;
   pointer-events: none;
-  overflow: visible;
+  /* Los brotes que se van de la pantalla se cortan en el borde, sin generar scroll lateral. */
+  overflow: hidden;
   z-index: 0;
 }
 
@@ -17,22 +18,18 @@
   filter: drop-shadow(0 0 4px var(--sprout-glow));
 }
 
-/* Se dibuja con el scroll. Sin soporte o con reduced motion queda completa. */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .linea {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      animation: dibujar linear both;
-      animation-timeline: scroll(root);
-    }
+/* Crecen con el scroll (GSAP en Hilo.tsx). Con reduced motion quedan completas. */
+@media (prefers-reduced-motion: no-preference) {
+  .linea {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
   }
 }
 
-@keyframes dibujar {
-  to {
-    stroke-dashoffset: 0;
-  }
+/* Los brotes son más finos que el riel. */
+.rama {
+  stroke-width: 1.5;
+  opacity: 0.7;
 }
 
 /* Brillo que recorre el último tramo cuando termina una tasación. */
