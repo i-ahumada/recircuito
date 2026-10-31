@@ -1,0 +1,28 @@
+.main {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  padding: 2rem var(--gutter);
+  text-align: center;
+  background: var(--bg);
+}
+
+/* El cajón está a la derecha de la imagen: se recorta para que quede centrado. */
+.img {
+  width: min(360px, 80vw);
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: 100% 50%;
+}
+
+.titulo {
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  font-weight: 800;
+}
+
+.sub {
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}

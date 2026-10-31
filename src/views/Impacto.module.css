@@ -1,0 +1,147 @@
+.section {
+  background: var(--bg);
+  padding-top: 0;
+}
+
+.hero {
+  position: relative;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+}
+
+.heroGrid {
+  position: relative;
+}
+
+.cifras {
+  padding-top: 1rem;
+}
+
+.lista {
+  margin: 2rem 0 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.cifra {
+  padding-left: 1rem;
+  border-left: 4px solid var(--secondary);
+}
+
+.cifra dt {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.cifra dd {
+  margin: 0.25rem 0 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.fuente {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+
+.fuente a {
+  text-underline-offset: 2px;
+}
+
+/* En escritorio, la imagen ocupa el fondo a la izquierda y las cifras el tercio derecho. */
+@media (min-width: 900px) {
+  .hero {
+    min-height: min(56vw, 860px);
+    display: flex;
+    align-items: center;
+    padding-block: 4rem;
+  }
+
+  .img {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 78%;
+  }
+
+  .heroGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .cifras {
+    grid-column: 2;
+    padding: 0;
+  }
+
+  .cifras :global(.sectionTitle) {
+    font-size: clamp(2rem, 3.2vw, 2.75rem);
+  }
+}
+
+.bloques {
+  margin-top: 3rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .bloques {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
+}
+
+.pilas,
+.proximamente {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border-radius: var(--radius-lg);
+}
+
+.pilas > *,
+.proximamente > * {
+  max-width: 100%;
+}
+
+.pilas {
+  background: var(--surface);
+  border: 2px solid var(--secondary);
+}
+
+.pilas > :last-child {
+  width: 100%;
+}
+
+.pilas > :global(.btn) {
+  width: auto;
+}
+
+.pilas h3,
+.proximamente h3 {
+  font-size: 1.5rem;
+}
+
+.proximamente {
+  background: var(--primary-soft);
+  border: 2px dashed var(--primary);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}

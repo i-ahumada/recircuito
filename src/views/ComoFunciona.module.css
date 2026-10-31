@@ -1,0 +1,90 @@
+.section {
+  background: var(--bg);
+}
+
+.pasos {
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 900px) {
+  .pasos {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+.paso {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+
+.img {
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+  aspect-ratio: 1;
+}
+
+.texto {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.num {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  font-weight: 800;
+}
+
+.texto h3 {
+  font-size: 1.375rem;
+  font-weight: 700;
+}
+
+.texto p {
+  color: var(--ink-soft);
+}
+
+.extras {
+  margin-top: 3rem;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 800px) {
+  .extras {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.extra {
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+
+.extra h3 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+.extraDescarte {
+  background: var(--secondary-soft);
+  border: 2px solid var(--secondary);
+}
+
+.extraModelo {
+  background: var(--primary-soft);
+  border: 2px solid var(--primary);
+}
