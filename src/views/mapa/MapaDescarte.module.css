@@ -121,3 +121,18 @@
 .tipo[data-tipo="pilas"] {
   background: var(--secondary-soft);
 }
+
+.ruta {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--sprout-ink);
+  text-underline-offset: 2px;
+}
+
+.lista .ruta {
+  grid-column: 1;
+}
