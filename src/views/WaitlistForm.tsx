@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useId, useState, type FormEvent } from "react";
 import { useWaitlist } from "@/hooks/useWaitlist";
 import type { Origen } from "@/lib/schemas";
+import { CAJAS } from "./cajas";
+import { Recorte } from "./Recorte";
 import styles from "./WaitlistForm.module.css";
 
 type Props = {
@@ -41,13 +42,14 @@ export function WaitlistForm({
   if (estado.tipo === "exito") {
     return (
       <div className={styles.exito} data-tono={tono} role="status">
-        <Image
+        <Recorte
           src="/img/gracias-lista-espera.webp"
           alt="Celular esperando con un brote verde"
-          width={200}
-          height={200}
-          loading="lazy"
-          className={`${styles.exitoImg} fundido`}
+          width={800}
+          height={800}
+          caja={CAJAS.gracias}
+          sizes="200px"
+          className={styles.exitoImg}
         />
         <p className={styles.exitoTexto}>¡Listo! Te avisamos cuando lancemos.</p>
       </div>

@@ -1,3 +1,4 @@
+import { Cierre } from "@/views/Cierre";
 import { ComoFunciona } from "@/views/ComoFunciona";
 import { CompradoresVerificados } from "@/views/CompradoresVerificados";
 import { Dispositivos } from "@/views/Dispositivos";
@@ -8,8 +9,8 @@ import { Hilo } from "@/views/Hilo";
 import { Impacto } from "@/views/Impacto";
 import { TasadorSection } from "@/views/TasadorSection";
 
-// Recorrido de un dispositivo: cajón lleno → cómo se vende → a quién va → qué entra →
-// por qué importa → lo probás con el tuyo (el tasador cierra la página).
+// Estructura de pitch: el problema (Impacto) → la solución (Cómo funciona, Compradores,
+// Tasador) → qué entra (Dispositivos) → cierre con la acción y la lista de espera.
 export default function Home() {
   return (
     <>
@@ -20,11 +21,12 @@ export default function Home() {
       <main id="contenido">
         <Hilo />
         <Hero />
+        <Impacto />
         <ComoFunciona />
         <CompradoresVerificados />
-        <Dispositivos />
-        <Impacto />
         <TasadorSection />
+        <Dispositivos />
+        <Cierre />
       </main>
       <Footer />
     </>

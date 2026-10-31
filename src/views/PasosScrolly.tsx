@@ -1,10 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import type { Caja } from "./Recorte";
+import { Recorte } from "./Recorte";
 import styles from "./ComoFunciona.module.css";
 
-type Paso = { img: string; alt: string; titulo: string; texto: string };
+type Paso = { img: string; caja: Caja; alt: string; titulo: string; texto: string };
 
 /**
  * En desktop: imagen fija a la izquierda que cambia con fundido cruzado cuando cada
@@ -29,22 +30,6 @@ export function PasosScrolly({ pasos }: { pasos: Paso[] }) {
 
   return (
     <div className={styles.scrolly}>
-      <div className={styles.fija} aria-hidden="true">
-        {pasos.map((p, i) => (
-          <Image
-            key={p.img}
-            src={p.img}
-            alt=""
-            width={800}
-            height={800}
-            loading="lazy"
-            sizes="40vw"
-            className={`${styles.fijaImg} fundido`}
-            data-activa={i === activo}
-          />
-        ))}
-      </div>
-
       <ol className={styles.pasos}>
         {pasos.map((p, i) => (
           <li
@@ -56,25 +41,33 @@ export function PasosScrolly({ pasos }: { pasos: Paso[] }) {
             data-activo={i === activo}
             className={styles.paso}
           >
-            <Image
-              src={p.img}
-              alt={p.alt}
-              width={800}
-              height={800}
-              loading="lazy"
-              sizes="90vw"
-              className={`${styles.pasoImg} fundido`}
-            />
             <div className={styles.pasoTexto}>
-              <span className={styles.num} data-hilo-nodo aria-hidden="true">
+              <span className={styles.num} aria-hidden="true">
                 {i + 1}
               </span>
               <h3>{p.titulo}</h3>
               <p>{p.texto}</p>
             </div>
+            <Recorte
+              src={p.img}
+              alt={p.alt}
+              width={800}
+              height={800}
+              caja={p.caja}
+              sizes="(min-width: 900px) 10vw, 120vw"
+              className={styles.pasoImg}
+            />
           </li>
         ))}
       </ol>
+
+      <div className={styles.fija} aria-hidden="true">
+        {pasos.map((p, i) => (
+          <div key={p.img} className={styles.fijaImg} data-activa={i === activo}>
+            <Recorte src={p.img} alt="" width={800} height={800} caja={p.caja} sizes="60vw" />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

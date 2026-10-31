@@ -23,7 +23,7 @@ export function CalculadoraCajon() {
     setCant((c) => ({ ...c, [id]: Math.min(MAX, Math.max(0, c[id] + delta)) }));
 
   return (
-    <div className={styles.calculadora}>
+    <div className={`${styles.calculadora} superficie`}>
       <h3>¿Cuánto hay en tu cajón?</h3>
       <ul className={styles.contadores}>
         {ITEMS.map((it) => (

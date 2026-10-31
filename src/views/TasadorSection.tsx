@@ -12,7 +12,7 @@ export function TasadorSection() {
     <section id="tasador" className="section" aria-labelledby="tasador-title">
       <div className="container">
         <div className={styles.intro}>
-          <Eyebrow>05 · Probalo con el tuyo</Eyebrow>
+          <Eyebrow>04 · Probalo con el tuyo</Eyebrow>
           <h2 id="tasador-title" className={styles.cierreTitulo}>
             Abrí el cajón. Empezá por uno.
           </h2>
@@ -41,7 +41,7 @@ export function TasadorSection() {
 
         <div className={styles.cierreGrid}>
           <div className={styles.cardWrap}>
-            <span className={`nodo ${styles.cardNodo}`} data-hilo-nodo aria-hidden="true" />
+            <span className={`nodo railNodo ${styles.cardNodo}`} data-hilo-nodo="tasador" aria-hidden="true" />
             <Tasador />
           </div>
           <CierreImagen />

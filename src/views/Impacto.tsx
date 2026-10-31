@@ -1,9 +1,9 @@
-import Image from "next/image";
+import { CAJAS } from "./cajas";
 import { CalculadoraCajon } from "./CalculadoraCajon";
 import { Contador } from "./Contador";
 import { Eyebrow } from "./Eyebrow";
 import styles from "./Impacto.module.css";
-import { MapaPilasToggle } from "./mapa/MapaPilasToggle";
+import { Recorte } from "./Recorte";
 
 // Las cifras de Argentina no se publican hasta tener una fuente citable.
 const FUENTE_GLOBAL = {
@@ -23,23 +23,25 @@ const CIFRAS = [
 
 export function Impacto() {
   return (
-    <section id="impacto" className={`section ${styles.section}`} aria-labelledby="impacto-title">
-      <div className={styles.hero}>
-        <Image
-          src="/img/impacto.webp"
-          alt="Pila de electrónica vieja de la que crecen hojas verdes"
-          width={1600}
-          height={893}
-          loading="lazy"
-          sizes="(min-width: 900px) 75vw, 100vw"
-          className={`${styles.img} fundido`}
-        />
-        <div className={`container ${styles.heroGrid}`}>
-          <div className={styles.cifras}>
-            <Eyebrow>04 · Por qué importa</Eyebrow>
-            <h2 id="impacto-title" className="sectionTitle">
-              El cajón es chico. El problema, no.
-            </h2>
+    <section id="impacto" className="section" aria-labelledby="impacto-title">
+      <div className="container">
+        <Eyebrow>01 · Por qué importa</Eyebrow>
+        <h2 id="impacto-title" className="sectionTitle">
+          Lo que guardás en el cajón no desaparece.
+        </h2>
+
+        <div className={styles.fila}>
+          <Recorte
+            src="/img/impacto.webp"
+            alt="Pila de electrónica vieja de la que crecen hojas verdes"
+            width={1600}
+            height={893}
+            caja={CAJAS.impacto}
+          fundido="fuerte"
+            sizes="(min-width: 900px) 90vw, 150vw"
+            className={styles.img}
+          />
+          <div className={`${styles.cifras} superficie`}>
             <dl className={styles.lista}>
               {CIFRAS.map((c) => (
                 <div key={c.texto} className={styles.cifra}>
@@ -58,25 +60,10 @@ export function Impacto() {
             </p>
           </div>
         </div>
-      </div>
 
-      <div className={`container ${styles.bloques}`}>
-        <CalculadoraCajon />
-        <div id="pilas" className={styles.pilas}>
-          <h3>¿Y las pilas?</h3>
-          <p>
-            Las pilas y baterías no se venden, pero contaminan el suelo y el agua si van a la basura común. Mirá en el
-            mapa dónde dejarlas.
-          </p>
-          <MapaPilasToggle />
+        <div className={styles.fila2}>
+          <CalculadoraCajon />
         </div>
-      </div>
-
-      <div className="container">
-        <p className={styles.proximamente}>
-          <span className={styles.badge}>Próximamente</span>
-          Puntos de recolección en locales adheridos, para dejar dispositivos que todavía sirven, como ese celular viejo.
-        </p>
       </div>
     </section>
   );

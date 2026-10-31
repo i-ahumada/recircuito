@@ -23,9 +23,13 @@
   --radius-sm: 10px;
   --radius: 16px;
   --radius-lg: 28px;
-  --shadow: 0 1px 2px rgb(15 27 45 / 0.06), 0 8px 24px rgb(15 27 45 / 0.06);
-  --max: 1440px;
-  --gutter: clamp(1rem, 3vw, 2rem);
+  /* Sin bordes: las superficies se separan del fondo con una sombra apenas visible. */
+  --shadow: 0 1px 2px rgb(15 27 45 / 0.04), 0 4px 18px rgb(15 27 45 / 0.05);
+  --shadow-hover: 0 2px 4px rgb(15 27 45 / 0.05), 0 8px 24px rgb(15 27 45 / 0.07);
+  --max: 1600px;
+  /* El margen izquierdo aloja el riel del hilo, centrado en el margen. */
+  --gutter: clamp(1.5rem, 4vw, 3.5rem);
+  --rail: calc(var(--gutter) / -2);
   --header-h: 72px;
 }
 
@@ -106,23 +110,39 @@ main .container {
 }
 
 .section {
-  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+.superficie {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
 }
 
 /* Las imágenes tienen un fondo casi igual a --bg pero no idéntico: se desvanecen
    los cuatro bordes para que no se note el corte. */
 .fundido {
   -webkit-mask-image:
-    linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%),
-    linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+    linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
   mask-image:
-    linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%),
-    linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+    linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
 
+.fundidoFuerte {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+}
+
 .eyebrow {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
@@ -131,6 +151,15 @@ main .container {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-soft);
+}
+
+/* Nodo del hilo en el riel del margen izquierdo: la línea nunca pisa el texto. */
+.eyebrow .nodo,
+.railNodo {
+  position: absolute;
+  left: calc(var(--rail) - 6px);
+  top: 50%;
+  margin-top: -6px;
 }
 
 /* Nodo del hilo: el punto verde donde la línea toca cada sección. */
@@ -225,13 +254,13 @@ main .container {
 }
 
 .btnGhost {
-  background: transparent;
-  border-color: var(--ink);
+  background: var(--surface);
   color: var(--ink);
+  box-shadow: var(--shadow);
 }
 
 .btnGhost:hover:not(:disabled) {
-  background: var(--surface);
+  box-shadow: var(--shadow-hover);
 }
 
 .btnLink {

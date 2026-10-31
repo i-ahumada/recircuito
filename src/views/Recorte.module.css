@@ -1,0 +1,14 @@
+.recorte {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.img {
+  position: absolute;
+  max-width: none;
+  width: var(--rw);
+  height: auto;
+  left: var(--rx);
+  top: var(--ry);
+}

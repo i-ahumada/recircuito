@@ -4,10 +4,10 @@ import { MobileMenu } from "./MobileMenu";
 
 // Mismo orden que la página.
 export const NAV = [
-  { href: "#como-funciona", label: "Cómo funciona" },
-  { href: "#dispositivos", label: "Dispositivos" },
   { href: "#impacto", label: "Impacto" },
+  { href: "#como-funciona", label: "Cómo funciona" },
   { href: "#tasador", label: "Tasador" },
+  { href: "#dispositivos", label: "Dispositivos" },
 ];
 
 export function Header() {

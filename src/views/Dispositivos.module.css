@@ -1,7 +1,7 @@
 .cabecera {
   display: grid;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 @media (min-width: 900px) {
@@ -17,47 +17,39 @@
   color: var(--ink-soft);
 }
 
-.item {
+/* Todas las tarjetas de la fila tienen la misma altura (la pista es un grid). */
+.item,
+.itemPilas {
   display: grid;
-  gap: 0.25rem;
-  align-content: start;
-  text-align: center;
-  padding-top: 8px;
-}
-
-.imgWrap {
-  border-radius: var(--radius-lg);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
 }
 
 .img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
+  /* Fondo igual al de la página para que el recorte se funda dentro de la tarjeta. */
+  background: var(--bg);
 }
 
-@media (hover: hover) {
-  .item:hover .imgWrap {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 30px -18px rgb(15 27 45 / 0.35);
-  }
+.cuerpo {
+  display: grid;
+  align-content: start;
+  gap: 0.25rem;
+  padding: 1rem 1.125rem 1.25rem;
 }
 
-.item h3 {
+.cuerpo h3 {
   font-size: 1.25rem;
   font-weight: 700;
 }
 
-.item p {
+.cuerpo p {
   font-size: 0.9375rem;
   color: var(--ink-soft);
 }
 
 .dato {
-  justify-self: center;
-  margin-top: 0.375rem;
+  justify-self: start;
+  margin-top: 0.5rem;
   padding: 0.125rem 0.625rem;
   border-radius: 999px;
   background: var(--sprout-soft);
@@ -65,8 +57,52 @@
   font-weight: 700;
 }
 
+/* Tarjeta-botón de pilas, al final de la fila. */
+.itemPilas {
+  grid-template-rows: 1fr;
+}
+
+.pilas {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.pilas:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.pilasIconoWrap {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 82 / 88;
+  background: var(--sprout-soft);
+}
+
+.pilasIcono {
+  width: 34%;
+  height: auto;
+  color: var(--sprout-ink);
+}
+
+.pilasTitulo {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.pilasTexto {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.pilasBoton {
+  justify-self: start;
+  margin-top: 0.75rem;
+}
+
 .otros {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -90,25 +126,32 @@
   padding: 0.375rem 0.875rem;
   border-radius: 999px;
   background: var(--surface);
+  box-shadow: var(--shadow);
   font-size: 0.9375rem;
   font-weight: 500;
 }
 
-.pilas {
-  margin-top: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.875rem 1.125rem;
-  border-radius: var(--radius);
-  background: var(--coral-soft);
-  border-left: 5px solid var(--coral);
-  max-width: 48rem;
+/* ---------- ¿Y las pilas? ---------- */
+.pilasBloque {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  padding: clamp(1.25rem, 4vw, 2rem);
 }
 
-.pilasIcono {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  color: var(--danger-ink);
+.pilasBloque h3 {
+  font-size: 1.5rem;
+}
+
+.pilasBloque p {
+  max-width: 44rem;
+}
+
+.pilasBloque > :last-child {
+  width: 100%;
+}
+
+.pilasBloque > :global(.btn) {
+  width: auto;
 }

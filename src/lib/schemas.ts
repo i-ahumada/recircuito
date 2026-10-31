@@ -150,7 +150,7 @@ export type Estimacion = z.infer<typeof estimacionSchema>;
 
 /* ---------- Waitlist ---------- */
 
-export const origenSchema = z.enum(["hero", "tasador", "footer"]);
+export const origenSchema = z.enum(["hero", "tasador", "cierre"]);
 export type Origen = z.infer<typeof origenSchema>;
 
 export const waitlistRequestSchema = z.object({

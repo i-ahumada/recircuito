@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
+import { CAJAS } from "@/views/cajas";
+import { Recorte } from "@/views/Recorte";
 import styles from "./not-found.module.css";
 
 export const metadata: Metadata = {
@@ -10,14 +11,14 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main className={styles.main}>
-      <Image
+      <Recorte
         src="/img/cierre-cajon-vacio.webp"
         alt="Cajón vacío con un brote creciendo"
         width={1600}
         height={893}
-        loading="lazy"
-        sizes="360px"
-        className={`${styles.img} fundido`}
+        caja={CAJAS.cierre}
+        sizes="700px"
+        className={styles.img}
       />
       <h1 className={styles.titulo}>Acá no hay nada… todavía</h1>
       <p className={styles.sub}>La página que buscás no existe o se mudó.</p>

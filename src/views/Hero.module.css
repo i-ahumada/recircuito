@@ -1,22 +1,19 @@
 .hero {
-  position: relative;
-  overflow: hidden;
-  padding-top: clamp(2rem, 6vw, 4rem);
+  padding-block: clamp(1.5rem, 5vw, 3rem) clamp(2rem, 5vw, 3rem);
 }
 
 .grid {
   display: grid;
-  gap: 1rem;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .texto {
-  position: relative;
-  z-index: 1;
   animation: subir 0.6s ease both;
 }
 
 .titulo {
-  font-size: clamp(3.5rem, 13vw, 8rem);
+  font-size: clamp(3.25rem, 14vw, 7.5rem);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.035em;
@@ -27,14 +24,15 @@
 }
 
 .sub {
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
   max-width: 32rem;
-  font-size: clamp(1.1875rem, 2.2vw, 1.5rem);
+  font-size: clamp(1.125rem, 2.2vw, 1.5rem);
   line-height: 1.45;
 }
 
 .ctas {
-  margin-top: 2rem;
+  position: relative;
+  margin-top: 1.75rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -44,7 +42,7 @@
 .ctas :global(.btn) {
   min-height: 56px;
   padding-inline: 2rem;
-  font-size: 1.25rem;
+  font-size: 1.1875rem;
 }
 
 .micro {
@@ -53,7 +51,7 @@
 }
 
 .selector {
-  margin-top: 2.25rem;
+  margin-top: 2rem;
 }
 
 .selectorTitulo {
@@ -79,18 +77,14 @@
   padding: 0.5rem 1rem 0.5rem 0.75rem;
   border-radius: 999px;
   background: var(--surface);
-  border: 2px solid transparent;
-  box-shadow: 0 1px 2px rgb(15 27 45 / 0.08);
+  box-shadow: var(--shadow);
   font-weight: 500;
   text-decoration: none;
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease;
+  transition: box-shadow 0.2s ease;
 }
 
 .chip:hover {
-  border-color: var(--sprout);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 .chipIcono {
@@ -100,47 +94,20 @@
 }
 
 .waitlist {
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
   font-size: 0.9375rem;
   color: var(--ink-soft);
 }
 
+/* La imagen ya viene recortada al cajón: en celular va debajo, a todo el ancho. */
 .media {
-  margin-inline: calc(var(--gutter) * -1);
-}
-
-/* El lienzo tiene la misma proporción que lo que se ve de la imagen, así los brotes
-   se ubican en % aunque en celular se recorte. --cx0 y --cw describen el recorte horizontal. */
-.lienzo {
-  position: relative;
-  --cx0: 26.6;
-  --cw: 69.77;
+  max-width: 560px;
+  justify-self: center;
   animation: aparecerImagen 0.8s ease-out both;
-}
-
-/* El fondo de la imagen no es 100% uniforme: se desvanecen los bordes izquierdo, superior e inferior
-   (el derecho coincide con el borde de la pantalla). */
-.img {
-  width: 100%;
-  height: auto;
-  /* En celular se recorta el espacio vacío de la izquierda para que el cajón se vea grande. */
-  aspect-ratio: 5 / 4;
-  object-fit: cover;
-  object-position: 88% 100%;
-  -webkit-mask-image:
-    linear-gradient(to right, transparent 0, #000 8%),
-    linear-gradient(to bottom, transparent 0, #000 6%, #000 94%, transparent 100%);
-  mask-image:
-    linear-gradient(to right, transparent 0, #000 8%),
-    linear-gradient(to bottom, transparent 0, #000 6%, #000 94%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
 }
 
 .brote {
   position: absolute;
-  left: calc((var(--x) - var(--cx0)) / var(--cw) * 100%);
-  top: calc(var(--y) * 1%);
   width: 14px;
   height: 14px;
   margin: -7px 0 0 -7px;
@@ -163,35 +130,20 @@
     min-height: calc(100svh - var(--header-h));
     display: flex;
     align-items: center;
-    padding-block: 3rem;
   }
 
-  /* La imagen se posiciona contra la sección, no contra el container. */
-  .hero .grid {
-    position: static;
+  .hero > :global(.container) {
+    width: 100%;
   }
 
-  .texto {
-    max-width: 46%;
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3rem;
   }
 
-  /* La imagen ocupa el fondo a la derecha, como en la referencia: el cajón queda abajo a la derecha. */
   .media {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: min(64vw, 1100px);
-    margin: 0;
-    z-index: 0;
-  }
-
-  .lienzo {
-    --cx0: 0;
-    --cw: 100;
-  }
-
-  .img {
-    aspect-ratio: auto;
+    max-width: 720px;
+    justify-self: end;
   }
 }
 

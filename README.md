@@ -152,7 +152,7 @@ Si algún punto queda con `"verificar": true`, el mapa muestra el aviso "Puntos 
 `POST /api/waitlist` valida el email con zod y reenvía este JSON a `WAITLIST_WEBHOOK_URL`:
 
 ```json
-{ "email": "vos@mail.com", "origen": "hero | tasador | footer",
+{ "email": "vos@mail.com", "origen": "hero | tasador | cierre",
   "dispositivo": "Celular Apple iPhone 11", "rango": "$264.000 – $330.000",
   "fecha": "2026-10-31T12:00:00.000Z" }
 ```

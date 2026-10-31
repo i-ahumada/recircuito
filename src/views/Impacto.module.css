@@ -1,45 +1,43 @@
-.section {
-  padding-top: 0;
-}
-
-.hero {
-  position: relative;
+/* ---------- Imagen + cifras: misma fila, misma altura ---------- */
+.fila {
+  margin-top: 1.75rem;
+  display: grid;
+  gap: 1rem;
 }
 
 .img {
-  width: 100%;
-  height: auto;
+  max-width: 640px;
+  justify-self: center;
 }
 
 .cifras {
-  padding-top: 1rem;
+  display: grid;
+  align-content: center;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 4vw, 2.25rem);
 }
 
 .lista {
-  margin: 2rem 0 0;
+  margin: 0;
   display: grid;
-  gap: 1.25rem;
-}
-
-.cifra {
-  padding-left: 1rem;
-  border-left: 4px solid var(--sprout);
+  gap: 1.5rem;
 }
 
 .cifra dt {
-  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.05;
   font-variant-numeric: tabular-nums;
+  color: var(--sprout-ink);
 }
 
 .cifra dd {
   margin: 0.25rem 0 0;
+  font-size: 1.0625rem;
 }
 
 .fuente {
-  margin-top: 1rem;
   font-size: 0.8125rem;
   color: var(--ink-soft);
 }
@@ -48,69 +46,38 @@
   text-underline-offset: 2px;
 }
 
-/* En escritorio, la imagen ocupa el fondo a la izquierda y las cifras el tercio derecho. */
 @media (min-width: 900px) {
-  .hero {
-    min-height: min(56vw, 820px);
-    display: flex;
-    align-items: center;
-    padding-block: 4rem;
+  .fila {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
   }
 
   .img {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 78%;
-  }
-
-  .heroGrid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-  }
-
-  .cifras {
-    grid-column: 2;
-    padding: 0;
-  }
-
-  .cifras :global(.sectionTitle) {
-    font-size: clamp(2rem, 3.2vw, 2.75rem);
+    max-width: none;
+    align-self: center;
   }
 }
 
-.bloques {
-  margin-top: 3rem;
+/* ---------- Calculadora: ocupa su propia fila ---------- */
+.fila2 {
+  margin-top: 1rem;
   display: grid;
-  gap: 1.25rem;
 }
 
-@media (min-width: 900px) {
-  .bloques {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
-}
-
-/* ---------- Calculadora ---------- */
-.calculadora,
-.pilas {
+.calculadora {
   display: grid;
+  align-content: start;
   gap: 1rem;
   justify-items: start;
   padding: clamp(1.25rem, 4vw, 2rem);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
 }
 
-.calculadora > *,
-.pilas > * {
+.calculadora > * {
   max-width: 100%;
 }
 
-.calculadora h3,
-.pilas h3 {
+.calculadora h3 {
   font-size: 1.5rem;
 }
 
@@ -135,7 +102,7 @@
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.5rem 0.5rem 0.5rem 1rem;
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--bg);
 }
 
@@ -153,8 +120,9 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid var(--ink);
+  border: 0;
   background: var(--surface);
+  box-shadow: var(--shadow);
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1;
@@ -162,7 +130,7 @@
 }
 
 .contador button:disabled {
-  opacity: 0.3;
+  opacity: 0.35;
   cursor: default;
 }
 
@@ -183,37 +151,8 @@
   color: var(--sprout-ink);
 }
 
-/* ---------- Pilas ---------- */
-.pilas {
-  border: 2px solid var(--sprout);
-}
-
-.pilas > :last-child {
-  width: 100%;
-}
-
-.pilas > :global(.btn) {
-  width: auto;
-}
-
-/* ---------- Próximamente ---------- */
-.proximamente {
-  margin-top: 1.25rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 0.75rem;
-  font-size: 0.9375rem;
-  color: var(--ink-soft);
-}
-
-.badge {
-  padding: 0.125rem 0.625rem;
-  border-radius: 999px;
-  background: var(--primary);
-  color: var(--ink);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+@media (min-width: 900px) {
+  .fila2 .contadores {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

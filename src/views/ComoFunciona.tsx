@@ -1,23 +1,27 @@
-import { Eyebrow } from "./Eyebrow";
+import { CAJAS } from "./cajas";
 import styles from "./ComoFunciona.module.css";
+import { Eyebrow } from "./Eyebrow";
 import { IconoPartes, IconoReciclaje, IconoReuso } from "./iconos";
 import { PasosScrolly } from "./PasosScrolly";
 
 const PASOS = [
   {
     img: "/img/paso-1-foto.webp",
+    caja: CAJAS.paso1,
     alt: "Sacale una foto y la IA lo tasa",
     titulo: "Sacale una foto.",
     texto: "La IA reconoce el modelo, te hace dos o tres preguntas y te da un rango de precio.",
   },
   {
     img: "/img/paso-2-ofertas.webp",
+    caja: CAJAS.paso2,
     alt: "Compradores verificados te ofertan",
     titulo: "Te ofertan compradores verificados.",
     texto: "Lo reparan, usan sus partes o lo revenden. Vos elegís qué oferta aceptar.",
   },
   {
     img: "/img/paso-3-retiro.webp",
+    caja: CAJAS.paso3,
     alt: "Aceptás y coordinan el retiro",
     titulo: "Coordinan el retiro.",
     texto: "Aceptás la oferta que te sirve, el comprador lo pasa a buscar y vos cobrás.",
@@ -45,29 +49,27 @@ export function ComoFunciona() {
   return (
     <section id="como-funciona" className="section" aria-labelledby="como-title">
       <div className="container">
-        <Eyebrow>01 · Así funciona</Eyebrow>
+        <Eyebrow>02 · Así funciona</Eyebrow>
         <h2 id="como-title" className="sectionTitle">
           De tu cajón a otras manos, en tres pasos.
         </h2>
 
         <PasosScrolly pasos={PASOS} />
 
-        <div className={styles.despues}>
-          <h3 className={styles.subtitulo}>Y después, ¿qué pasa con él?</h3>
-          <ul className={styles.destinos}>
-            {DESTINOS.map(({ Icono, titulo, texto }) => (
-              <li key={titulo} className={`${styles.destino} reveal`}>
-                <Icono className={styles.destinoIcono} />
-                <h4>{titulo}</h4>
-                <p>{texto}</p>
-              </li>
+        <h3 className={styles.subtitulo}>Y después, ¿qué pasa con él?</h3>
+        <ul className={styles.destinos}>
+          {DESTINOS.map(({ Icono, titulo, texto }) => (
+            <li key={titulo} className={`${styles.destino} superficie`}>
+              <Icono className={styles.destinoIcono} />
+              <h4>{titulo}</h4>
+              <p>{texto}</p>
+            </li>
             ))}
-          </ul>
-          <p className={styles.cobro}>Publicar es gratis. Cobramos una comisión solo si vendés.</p>
-        </div>
+        </ul>
+        <p className={styles.cobro}>Publicar es gratis. Cobramos una comisión solo si vendés.</p>
 
-        <div className={styles.checklist}>
-          <h3 className={styles.subtitulo}>Antes de entregarlo</h3>
+        <div className={`${styles.checklist} superficie`}>
+          <h3 className={styles.checklistTitulo}>Antes de entregarlo</h3>
           <ul>
             {CHECKLIST.map((item) => (
               <li key={item}>{item}</li>

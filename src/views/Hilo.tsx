@@ -3,23 +3,22 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Hilo.module.css";
 
-/** Evento que dispara el tasador cuando muestra un resultado: completa el hilo. */
+/** Evento que dispara el tasador cuando muestra un resultado: brilla el tramo que entra al tasador. */
 export const EVENTO_TASADO = "recircuito:tasado";
-
-const BREAKPOINT_MOBILE = 768;
-const X_MOBILE = 12;
 
 type Punto = { x: number; y: number };
 
-function curva(a: Punto, b: Punto): string {
+/** Ondulación suave dentro del margen: nunca sale del riel hacia el contenido. */
+function curva(a: Punto, b: Punto, onda: number): string {
   const dy = b.y - a.y;
-  return `C ${a.x} ${a.y + dy * 0.5}, ${b.x} ${b.y - dy * 0.5}, ${b.x} ${b.y}`;
+  return `C ${a.x - onda} ${a.y + dy * 0.35}, ${b.x + onda} ${b.y - dy * 0.35}, ${b.x} ${b.y}`;
 }
 
 /**
- * Línea verde que recorre la página pasando por cada elemento con `data-hilo-nodo`
- * dentro de <main>. Se dibuja con el scroll (CSS scroll-timeline); sin soporte o con
- * prefers-reduced-motion se ve completa.
+ * Línea verde que recorre la página por el margen izquierdo (el riel), pasando por cada
+ * elemento con `data-hilo-nodo` dentro de <main>. Los nodos viven en el riel, así la
+ * línea no cruza el texto. Se dibuja con el scroll (CSS scroll-timeline); sin soporte
+ * o con prefers-reduced-motion se ve completa.
  */
 export function Hilo() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -35,24 +34,28 @@ export function Hilo() {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const base = main.getBoundingClientRect();
-        const mobile = window.innerWidth < BREAKPOINT_MOBILE;
         const puntos: Punto[] = [];
+        let iTasador = -1;
         main.querySelectorAll<HTMLElement>("[data-hilo-nodo]").forEach((el) => {
           const r = el.getBoundingClientRect();
           if (r.width === 0 && r.height === 0) return; // oculto
+          if (el.dataset.hiloNodo === "tasador") iTasador = puntos.length;
           puntos.push({
-            x: mobile ? X_MOBILE : r.left - base.left + r.width / 2,
+            x: r.left - base.left + r.width / 2,
             y: r.top - base.top + r.height / 2,
           });
         });
         // Se respeta el orden del documento: el hilo entra a la tarjeta del tasador y termina en el brote.
         if (puntos.length < 2) return setTrazado(null);
+        // La onda ocupa como máximo un tercio del margen, para no acercarse al texto.
+        const onda = Math.min(14, puntos[0].x * 0.6);
         const [primero, ...resto] = puntos;
         let d = `M ${primero.x} ${primero.y}`;
-        resto.forEach((p, i) => (d += ` ${curva(i === 0 ? primero : resto[i - 1], p)}`));
-        const a = puntos[puntos.length - 2];
-        const b = puntos[puntos.length - 1];
-        setTrazado({ d, ultimo: `M ${a.x} ${a.y} ${curva(a, b)}`, alto: base.height });
+        resto.forEach((p, i) => (d += ` ${curva(i === 0 ? primero : resto[i - 1], p, onda)}`));
+        const fin = iTasador > 0 ? iTasador : puntos.length - 1;
+        const a = puntos[fin - 1];
+        const b = puntos[fin];
+        setTrazado({ d, ultimo: `M ${a.x} ${a.y} ${curva(a, b, onda)}`, alto: base.height });
       });
     };
 

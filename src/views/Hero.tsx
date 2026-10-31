@@ -1,8 +1,9 @@
-import Image from "next/image";
+import { CAJAS } from "./cajas";
 import styles from "./Hero.module.css";
 import { CATEGORIAS_ICONOS } from "./iconos";
+import { enRecorte, Recorte } from "./Recorte";
 
-// Puntas de los brotes en hero-cajon.webp, en % de la imagen. La primera (la más alta) es donde nace el hilo.
+// Puntas de los brotes en hero-cajon.webp, en % de la imagen original.
 const BROTES = [
   { x: 77.7, y: 15.2 },
   { x: 68.5, y: 17.9 },
@@ -24,6 +25,8 @@ export function Hero() {
             cuánto.
           </p>
           <div className={styles.ctas}>
+            {/* Acá nace el hilo. */}
+            <span className="nodo railNodo" data-hilo-nodo aria-hidden="true" />
             <a href="#tasador" className="btn btnCoral">
               Tasá tu dispositivo
             </a>
@@ -54,29 +57,25 @@ export function Hero() {
           </p>
         </div>
 
-        <div className={styles.media}>
-          <div className={styles.lienzo}>
-            <Image
-              src="/img/hero-cajon.webp"
-              alt="Cajón abierto con celulares, tablets y cables viejos de los que salen brotes verdes"
-              width={1600}
-              height={893}
-              priority
-              fetchPriority="high"
-              sizes="(min-width: 900px) 64vw, 100vw"
-              className={styles.img}
+        <Recorte
+          src="/img/hero-cajon.webp"
+          alt="Cajón abierto con celulares, tablets y cables viejos de los que salen brotes verdes"
+          width={1600}
+          height={893}
+          caja={CAJAS.hero}
+          sizes="(min-width: 900px) 90vw, 190vw"
+          priority
+          className={styles.media}
+        >
+          {BROTES.map((b, i) => (
+            <span
+              key={i}
+              className={styles.brote}
+              style={{ ...enRecorte(CAJAS.hero, b.x, b.y), "--i": i } as React.CSSProperties}
+              aria-hidden="true"
             />
-            {BROTES.map((b, i) => (
-              <span
-                key={i}
-                className={styles.brote}
-                style={{ "--x": b.x, "--y": b.y, "--i": i } as React.CSSProperties}
-                {...(i === 0 ? { "data-hilo-nodo": "" } : {})}
-                aria-hidden="true"
-              />
-            ))}
-          </div>
-        </div>
+          ))}
+        </Recorte>
       </div>
     </section>
   );
