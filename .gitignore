@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env
+.env.local
+*.tsbuildinfo
+next-env.d.ts
+
+# Datos crudos (fuentes locales, no se versionan). Los JSON que usa la app
+# (src/data/precios-referencia.json y src/data/puntos-descarte.json) sí se versionan.
+src/data/ba_residuos/
+src/data/precios/
