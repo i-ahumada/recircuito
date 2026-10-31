@@ -63,7 +63,7 @@ export function PasoPreguntas({ analisis, respuestas, previewUrl, onResponder, o
         ))}
 
         <div className={styles.acciones}>
-          <button type="submit" className="btn btnCoral" disabled={!completas}>
+          <button type="submit" className="btn btnPrimario" disabled={!completas}>
             Ver cuánto vale
           </button>
           {!completas && <span className={styles.hint}>Contestá todas las preguntas para seguir.</span>}

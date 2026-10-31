@@ -99,7 +99,7 @@ export function Tasador() {
             <p>{estado.error.message}</p>
             <div className={styles.acciones}>
               {estado.error.codigo !== "limite_diario" && (
-                <button type="button" className="btn btnCoral" onClick={tasacion.reintentar}>
+                <button type="button" className="btn btnPrimario" onClick={tasacion.reintentar}>
                   Probar de nuevo
                 </button>
               )}

@@ -24,7 +24,7 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <a href="#tasador" className="btn btnCoral btnSmall">
+          <a href="#tasador" className="btn btnPrimario btnSmall">
             Tasá tu dispositivo
           </a>
         </nav>

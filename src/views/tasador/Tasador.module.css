@@ -587,7 +587,6 @@
   color: var(--ink-soft);
 }
 
-/* El coral como texto no llega a AA sobre fondo claro: se usa como fondo con texto oscuro. */
 .precio {
   font-variant-numeric: tabular-nums;
   display: inline-flex;
@@ -597,8 +596,9 @@
   margin-top: 0.5rem;
   padding: 0.25rem 1rem;
   border-radius: 14px;
-  background: var(--coral);
-  color: var(--ink);
+  background: var(--brand-blue);
+  color: #fff;
+  box-shadow: 0 4px 18px var(--brand-green-glow);
   font-size: clamp(2rem, 7vw, 3.5rem);
   font-weight: 800;
   letter-spacing: -0.02em;

@@ -165,7 +165,7 @@ export function MapaDescarte({ filtroInicial = "todos" }: { filtroInicial?: Filt
             <CircleMarker
               center={miUbicacion}
               radius={7}
-              pathOptions={{ color: "#fff", weight: 3, fillColor: "#ff6b4a", fillOpacity: 1 }}
+              pathOptions={{ color: "#fff", weight: 3, fillColor: "#0052c4", fillOpacity: 1 }}
             >
               <Popup>Estás acá</Popup>
             </CircleMarker>
