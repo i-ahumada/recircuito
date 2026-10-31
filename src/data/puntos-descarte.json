@@ -1,0 +1,240 @@
+[
+  {
+    "id": "punto-verde-6",
+    "nombre": "Punto Verde Estación Lugano",
+    "direccion": "Murguiondo 4121",
+    "barrio": "Villa Lugano",
+    "lat": -34.676666,
+    "lng": -58.476121,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-11",
+    "nombre": "Punto Verde Parque Las Heras",
+    "direccion": "Diaz, Cnel. Av. 2437",
+    "barrio": "Recoleta",
+    "lat": -34.584483,
+    "lng": -58.406767,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-14",
+    "nombre": "Punto Verde Parque Saavedra",
+    "direccion": "Paroissien y Perez, Roque",
+    "barrio": "Saavedra",
+    "lat": -34.551784,
+    "lng": -58.48206,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-17",
+    "nombre": "Punto Verde Parque Santojanni",
+    "direccion": "De La Torre, Lisandro y Acassuso",
+    "barrio": "Liniers",
+    "lat": -34.650423,
+    "lng": -58.515891,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-24",
+    "nombre": "Punto Verde Plaza Almagro",
+    "direccion": "Bulnes y Sarmiento",
+    "barrio": "Almagro",
+    "lat": -34.60528,
+    "lng": -58.418358,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-30",
+    "nombre": "Punto Verde Plaza Benito Nazar",
+    "direccion": "Antezana y Olaya",
+    "barrio": "Villa Crespo",
+    "lat": -34.604898,
+    "lng": -58.444663,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-35",
+    "nombre": "Punto Verde Plaza Colombia",
+    "direccion": "Brandsen y Montes De Oca, Manuel Av.",
+    "barrio": "Barracas",
+    "lat": -34.63787,
+    "lng": -58.374442,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-38",
+    "nombre": "Punto Verde Plaza de La Misericordia",
+    "direccion": "Bilbao, Francisco y Lautaro",
+    "barrio": "Flores",
+    "lat": -34.632888,
+    "lng": -58.454994,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-41",
+    "nombre": "Punto Verde Plaza Don Bosco",
+    "direccion": "Lope De Vega Av. y Gonzalez, Elpidio",
+    "barrio": "Monte Castro",
+    "lat": -34.626829,
+    "lng": -58.508309,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-43",
+    "nombre": "Punto Verde Plaza Echeverría",
+    "direccion": "Rivera, Pedro I., Dr. y Bauness",
+    "barrio": "Villa Urquiza",
+    "lat": -34.572721,
+    "lng": -58.489558,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-48",
+    "nombre": "Punto Verde Plaza Irlanda",
+    "direccion": "Alvarez, Donato, Tte. Gral. y Gaona Av.",
+    "barrio": "Caballito",
+    "lat": -34.613877,
+    "lng": -58.459429,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-53",
+    "nombre": "Punto Verde Plaza Manuel Belgrano",
+    "direccion": "Echeverria y Cuba",
+    "barrio": "Belgrano",
+    "lat": -34.561848,
+    "lng": -58.453948,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-56",
+    "nombre": "Punto Verde Plaza Mariano Boedo",
+    "direccion": "Sanchez De Loria y Estados Unidos",
+    "barrio": "Boedo",
+    "lat": -34.621881,
+    "lng": -58.412442,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-59",
+    "nombre": "Punto Verde Plaza Monseñor De Andrea",
+    "direccion": "Cabrera, Jose A. y Anchorena, Tomas Manuel De, Dr.",
+    "barrio": "Recoleta",
+    "lat": -34.596987,
+    "lng": -58.407564,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-65",
+    "nombre": "Punto Verde Plaza Rivadavia",
+    "direccion": "Rivadavia Av. y Balcarce, Florencio",
+    "barrio": "Caballito",
+    "lat": -34.617535,
+    "lng": -58.43474,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-68",
+    "nombre": "Punto Verde Plaza Rosario Vera Peñalozza",
+    "direccion": "San Juan Av. y Chacabuco",
+    "barrio": "San Telmo",
+    "lat": -34.622001,
+    "lng": -58.375652,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  },
+  {
+    "id": "punto-verde-73",
+    "nombre": "Punto Verde Plaza Velez Sarsfield",
+    "direccion": "Chivilcoy y Bogota",
+    "barrio": "Floresta",
+    "lat": -34.630558,
+    "lng": -58.4832,
+    "tipos": [
+      "raee",
+      "pilas"
+    ],
+    "horario": "Martes a Viernes de 14 a 19 y Sábados de 10 a 18 h",
+    "verificar": false
+  }
+]
