@@ -31,13 +31,13 @@ Otros scripts:
 Se usa el campo `models` de OpenRouter para el fallback automático: si el primero falla, prueba el siguiente.
 
 - **Testing (sin créditos):** `OPENROUTER_MODELS=nvidia/nemotron-3.5-super-vl:free`
-- **Producción (con créditos):** `OPENROUTER_MODELS=google/gemini-2.5-flash-lite,nvidia/nemotron-3.5-super-vl:free`
+- **Producción (con créditos):** `OPENROUTER_MODELS=google/gemini-3.5-flash-lite,nvidia/nemotron-3.5-super-vl:free`
 
-  Se usa Gemini **2.5** Flash Lite y no la 3.5 porque la 3.5 no permite apagar el razonamiento: aun con esfuerzo mínimo tarda 2,4–2,9 s con una foto, contra 1,5 s de la 2.5, que además cuesta entre 3 y 6 veces menos. Para clasificar un dispositivo y redactar textos cortos, razonar no aporta.
+  Gemini 3.5 Flash Lite no permite apagar el razonamiento: va con esfuerzo mínimo (0 tokens de razonamiento) y tarda 2,4–2,9 s por llamada con una foto. Si hace falta más velocidad o menos costo, `google/gemini-2.5-flash-lite` sí lo apaga del todo: tarda ~1,5 s y cuesta entre 3 y 6 veces menos.
 
 > La app prueba los modelos **de a uno y en orden**. Si uno falla por cualquier motivo (sin saldo, cupo lleno, caído, timeout), pasa al siguiente. No usa el fallback `models` de OpenRouter porque manda la misma configuración a todos los modelos y no pasa al siguiente ante un 402. Por eso conviene que la lista de producción termine siempre con un modelo gratuito.
 >
-> El razonamiento se pide apagado para que responda rápido. Los modelos que no lo permiten (como `google/gemini-3.5-flash-lite`, que responde 400 "Reasoning is mandatory") se reintentan solos con esfuerzo mínimo, y la app lo recuerda hasta que se reinicia.
+> El razonamiento se pide apagado para que responda rápido. Los modelos que no lo permiten (como `google/gemini-3.5-flash-lite`, que responde 400 "Reasoning is mandatory") van con esfuerzo mínimo: los Gemini 3 ya vienen marcados en `EXIGEN_RAZONAMIENTO`, y cualquier otro que dé ese 400 se reintenta solo con esfuerzo mínimo y la app lo recuerda hasta que se reinicia.
 
 Verificá que los IDs sigan existiendo en https://openrouter.ai/models antes de la demo.
 

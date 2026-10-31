@@ -35,9 +35,13 @@ function modelos(): string[] {
  */
 const RAZONAMIENTO_APAGADO = { enabled: false } as const;
 const RAZONAMIENTO_MINIMO = { effort: "minimal" } as const;
+/** Modelos que ya se sabe que exigen razonamiento: se evita el primer 400 tras cada reinicio. */
+const EXIGEN_RAZONAMIENTO = [/^google\/gemini-3/];
 const conRazonamientoObligatorio = new Set<string>();
 const razonamientoPara = (modelo: string) =>
-  conRazonamientoObligatorio.has(modelo) ? RAZONAMIENTO_MINIMO : RAZONAMIENTO_APAGADO;
+  conRazonamientoObligatorio.has(modelo) || EXIGEN_RAZONAMIENTO.some((re) => re.test(modelo))
+    ? RAZONAMIENTO_MINIMO
+    : RAZONAMIENTO_APAGADO;
 
 class RazonamientoObligatorio extends Error {}
 
@@ -160,7 +164,7 @@ export async function completarEstructurado<T>(pedido: Pedido<T>): Promise<T> {
       try {
         return await llamarUnaVez(pedido, apiKey, modelo, timeout);
       } catch (err) {
-        if (err instanceof RazonamientoObligatorio && !conRazonamientoObligatorio.has(modelo)) {
+        if (err instanceof RazonamientoObligatorio && razonamientoPara(modelo) === RAZONAMIENTO_APAGADO) {
           conRazonamientoObligatorio.add(modelo);
           continue; // mismo modelo, ahora con razonamiento mínimo
         }
