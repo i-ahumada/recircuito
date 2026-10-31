@@ -59,6 +59,68 @@
   }
 }
 
+/* ---------- Composición de un RAEE: barra segmentada fina + leyenda con valores ---------- */
+.composicion {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+}
+
+.composicion h3 {
+  font-size: 1.5rem;
+}
+
+.barra {
+  display: flex;
+  gap: 2px;
+  height: 8px;
+}
+
+.barra span {
+  flex-basis: 0;
+  min-width: 4px;
+  border-radius: 999px;
+}
+
+.partes {
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 720px) {
+  .partes {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.parte dt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+}
+
+.parte dt strong {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.muestra {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.parte dd {
+  margin: 0.125rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
 /* ---------- Calculadora: ocupa su propia fila ---------- */
 .fila2 {
   margin-top: 1rem;
