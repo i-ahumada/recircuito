@@ -11,7 +11,7 @@ const COLUMNAS = ["fecha", "email", "origen", "dispositivo", "rango", "precio"] 
 type Fila = Record<(typeof COLUMNAS)[number], string>;
 
 function rutaCsv() {
-  return path.resolve(process.cwd(), process.env.WAITLIST_CSV_PATH || "data/waitlist.csv");
+  return path.resolve(/* turbopackIgnore: true */ process.cwd(), process.env.WAITLIST_CSV_PATH || "data/waitlist.csv");
 }
 
 /** Escapa para CSV y evita que Excel o Sheets interpreten el texto como fórmula. */
