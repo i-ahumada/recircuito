@@ -1,19 +1,174 @@
-.section {
-  background: var(--surface);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  position: relative;
-  z-index: 1;
+.intro {
+  margin-bottom: 2rem;
 }
 
-.intro {
-  margin-bottom: 2.5rem;
+.cierreTitulo {
+  margin-top: 0.75rem;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* ---------- Lo que se está pagando hoy ---------- */
+.precios {
+  margin-bottom: 2rem;
+}
+
+.preciosTitulo {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.preciosFila {
+  margin: 0.75rem 0 0;
+  padding: 0 0 0.25rem;
+  list-style: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(200px, max-content);
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.precioCard {
+  scroll-snap-align: start;
+  display: grid;
+  gap: 0.125rem;
+  padding: 0.875rem 1.125rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border-left: 4px solid var(--sprout);
+}
+
+.precioNombre {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.precioHasta {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.preciosNota {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Tarjeta + cajón vacío ---------- */
+.cierreGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.cierreMedia {
+  position: relative;
+  order: -1;
+  max-width: 420px;
+  width: 100%;
+  justify-self: center;
+  /* En celular la imagen se recorta a 4:3 contra la derecha: --cx0 y --cw describen ese recorte. */
+  --cx0: 25.58;
+  --cw: 74.42;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.cierreMedia[data-visible="true"] {
+  opacity: 1;
+}
+
+.cierreImg {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 100% 50%;
+}
+
+.broteFinal {
+  position: absolute;
+  left: calc((var(--x) - var(--cx0)) / var(--cw) * 100%);
+  top: calc(var(--y) * 1%);
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--sprout);
+  box-shadow:
+    0 0 0 4px var(--sprout-glow),
+    0 0 16px var(--sprout);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .broteFinal[data-pulso="true"] {
+    animation: pulsoFinal 1.2s ease-out 0.6s 1 both;
+  }
+}
+
+@keyframes pulsoFinal {
+  0% {
+    box-shadow:
+      0 0 0 4px var(--sprout-glow),
+      0 0 16px var(--sprout);
+  }
+  40% {
+    transform: scale(1.8);
+    box-shadow:
+      0 0 0 18px rgb(12 180 127 / 0.25),
+      0 0 40px var(--sprout);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cardWrap {
+  position: relative;
+  min-width: 0;
+}
+
+.cardNodo {
+  position: absolute;
+  top: -6px;
+  left: 24px;
+  z-index: 2;
+}
+
+@media (min-width: 1000px) {
+  .cierreGrid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 2.5rem;
+  }
+
+  .cierreMedia {
+    order: 0;
+    max-width: none;
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+    --cx0: 0;
+    --cw: 100;
+  }
+
+  .cierreImg {
+    aspect-ratio: auto;
+  }
+}
+
+.todaviaNo {
+  margin-top: 1.5rem;
+  color: var(--ink-soft);
 }
 
 .card {
   border-radius: var(--radius-lg);
-  background: var(--bg);
+  background: var(--surface);
   padding: clamp(1.25rem, 4vw, 2.5rem);
-  border: 1px solid var(--border);
+  border-top: 4px solid var(--sprout);
+  box-shadow: var(--shadow);
 }
 
 /* Stepper */
@@ -99,7 +254,7 @@
   padding: clamp(1.5rem, 5vw, 3rem) 1rem;
   border: 2px dashed #9aa8b4;
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--bg);
   transition:
     border-color 0.2s ease,
     background-color 0.2s ease;
@@ -179,12 +334,79 @@
   text-align: center;
 }
 
-.progresoImg {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
+/* Escaneo: el mismo lenguaje visual que paso-1-foto. */
+.escaneo {
+  position: relative;
+  width: min(260px, 70vw);
+  aspect-ratio: 1;
   border-radius: var(--radius);
-  opacity: 0.85;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.escaneo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.escaneoLinea {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--sprout);
+  box-shadow: 0 0 12px 3px var(--sprout-glow);
+  animation: escanear 2s ease-in-out infinite;
+}
+
+.escaneoPunto {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: var(--sprout);
+  box-shadow: 0 0 10px 2px var(--sprout);
+  opacity: 0;
+  animation: encenderPunto 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .escaneoLinea {
+    top: 50%;
+    animation: none !important;
+  }
+  .escaneoPunto {
+    opacity: 1;
+    animation: none !important;
+  }
+}
+
+@keyframes escanear {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: calc(100% - 3px);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes encenderPunto {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  40%,
+  60% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .spinner {
@@ -222,7 +444,7 @@
   align-items: flex-start;
   padding: 1rem;
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--bg);
 }
 
 .detectadoImg {
@@ -379,7 +601,7 @@
 .sinValor {
   padding: clamp(1.25rem, 4vw, 2rem);
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--bg);
 }
 
 .precioLabel {
@@ -392,6 +614,7 @@
 
 /* El coral como texto no llega a AA sobre fondo claro: se usa como fondo con texto oscuro. */
 .precio {
+  font-variant-numeric: tabular-nums;
   display: inline-flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -411,6 +634,16 @@
   font-weight: 500;
 }
 
+.sinValorTitulo {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--sprout-ink);
+}
+
+.sinValor :global(.btnLink) {
+  display: inline-block;
+  margin-top: 0.75rem;
+}
+
 .precioSinRef {
   margin-top: 0.5rem;
   font-size: 1.5rem;
@@ -427,7 +660,7 @@
   gap: 1rem;
   padding: clamp(1.25rem, 4vw, 2rem);
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--bg);
 }
 
 .borrador h3 {
@@ -487,7 +720,7 @@
 /* ¿Por qué este precio? */
 .porQue {
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--bg);
   border: 1px solid var(--border);
   overflow: hidden;
   interpolate-size: allow-keywords;
@@ -564,7 +797,7 @@
   margin-top: 0.75rem;
   padding: 0.75rem 1rem;
   border-left: 4px solid var(--primary);
-  background: var(--bg);
+  background: var(--surface);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-size: 0.9375rem;
 }

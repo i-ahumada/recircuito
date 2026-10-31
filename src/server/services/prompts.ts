@@ -5,7 +5,7 @@ const ESTILO = `Todo texto que generes va en español rioplatense, con voseo ("t
 /* ---------------- Paso 2: análisis de la imagen ---------------- */
 
 export function systemAnalizar(): string {
-  return `Sos el tasador de ReCircuito, un marketplace argentino donde la gente vende dispositivos electrónicos en desuso a técnicos y empresas verificados.
+  return `Sos el tasador de ReCircuito, un marketplace argentino donde la gente vende dispositivos electrónicos en desuso a compradores verificados.
 ${ESTILO}
 
 Tu tarea: mirar la foto e identificar el dispositivo. No das precios.
@@ -99,7 +99,7 @@ export const jsonSchemaAnalisis = {
 /* ---------------- Paso 3: textos de la estimación ---------------- */
 
 export function systemEstimar(): string {
-  return `Sos el redactor de ReCircuito, un marketplace argentino donde la gente vende dispositivos electrónicos en desuso a técnicos y empresas verificados.
+  return `Sos el redactor de ReCircuito, un marketplace argentino donde la gente vende dispositivos electrónicos en desuso a compradores verificados.
 ${ESTILO}
 
 Te pasamos un dispositivo ya tasado. Los números ya están calculados: NO inventes ni cambies precios, porcentajes ni montos. Si mencionás un monto, usá exactamente los que te damos.

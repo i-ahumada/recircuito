@@ -2,10 +2,61 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgb(237 241 243 / 0.88);
-  backdrop-filter: saturate(1.4) blur(12px);
-  -webkit-backdrop-filter: saturate(1.4) blur(12px);
-  border-bottom: 1px solid rgb(15 27 45 / 0.06);
+  background: rgb(237 241 243 / 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgb(15 27 45 / 0.06), 0 6px 20px rgb(15 27 45 / 0.06);
+}
+
+/* Barra de avance del recorrido. */
+.avance {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--sprout);
+  transform-origin: left;
+  transform: scaleX(0);
+  display: none;
+}
+
+/* Con soporte de scroll timelines: el header arranca transparente sobre el hero
+   y gana fondo y sombra al bajar; la barra crece con el scroll. Sin soporte,
+   queda siempre con fondo y sin barra. */
+@supports (animation-timeline: scroll()) {
+  .avance {
+    display: block;
+    animation: avanzar linear both;
+    animation-timeline: scroll(root);
+  }
+
+  .header {
+    animation: ganarFondo linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 240px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .avance {
+      display: none;
+    }
+  }
+}
+
+@keyframes avanzar {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ganarFondo {
+  from {
+    background: rgb(237 241 243 / 0);
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+    box-shadow: 0 0 0 transparent;
+  }
 }
 
 .inner {
@@ -19,12 +70,12 @@
 .nav {
   display: none;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .nav ul {
   display: flex;
-  gap: 2.25rem;
+  gap: 1.75rem;
   margin: 0;
   padding: 0;
   list-style: none;

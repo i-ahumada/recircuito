@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { Analisis, Estimacion } from "@/lib/schemas";
+import { Contador } from "../Contador";
 import { MapaDescarteLazy } from "../mapa/MapaDescarteLazy";
 import { WaitlistForm } from "../WaitlistForm";
 import { BorradorEditable } from "./BorradorEditable";
@@ -28,12 +29,16 @@ export function Resultado({ analisis, estimacion, onTasarOtro }: Props) {
         {estimacion.tipo === "conPrecio" ? (
           <>
             <p className={styles.precioLabel}>Rango estimado</p>
-            <p className={styles.precio}>
-              <span>{formatoARS(estimacion.rango.minARS)}</span>
-              <span className={styles.precioSep} aria-label="a">
+            <p className={styles.precio} aria-label={`Entre ${rangoTexto}`}>
+              <span aria-hidden="true">
+                <Contador valor={estimacion.rango.minARS} prefijo="$ " duracionMs={900} inmediato />
+              </span>
+              <span className={styles.precioSep} aria-hidden="true">
                 –
               </span>
-              <span>{formatoARS(estimacion.rango.maxARS)}</span>
+              <span aria-hidden="true">
+                <Contador valor={estimacion.rango.maxARS} prefijo="$ " duracionMs={900} inmediato />
+              </span>
             </p>
           </>
         ) : (
@@ -133,8 +138,11 @@ function ResultadoSinValor({
   return (
     <div className={styles.resultado}>
       <div className={styles.sinValor}>
-        <p className={styles.precioLabel}>Sin valor de reventa</p>
+        <h3 className={styles.sinValorTitulo}>No va a la basura: tiene un lugar.</h3>
         <p className={styles.resumen}>{estimacion.resumen}</p>
+        <a href="#mapa-descarte" className="btnLink">
+          Ver dónde dejarlo ↓
+        </a>
       </div>
 
       <details className={styles.porQue}>
@@ -146,7 +154,7 @@ function ResultadoSinValor({
       </details>
 
       <div className={styles.mapaBloque}>
-        <h3 ref={mapaTituloRef} tabIndex={-1} className={styles.mapaTitulo}>
+        <h3 ref={mapaTituloRef} id="mapa-descarte" tabIndex={-1} className={styles.mapaTitulo}>
           {estimacion.tipoResiduo === "pilas" ? "Dónde dejar pilas y baterías" : "Dónde dejar tus electrónicos"}
         </h3>
         <MapaDescarteLazy filtroInicial={estimacion.tipoResiduo} />

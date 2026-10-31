@@ -1,65 +1,89 @@
 import Image from "next/image";
+import { desdePorCategoria, formatoPesos } from "@/lib/referenciasPublicas";
+import { Carrusel } from "./Carrusel";
+import { Eyebrow } from "./Eyebrow";
 import styles from "./Dispositivos.module.css";
+import { IconoPila } from "./iconos";
 
 const CATEGORIAS = [
-  { img: "cat-celular", nombre: "Celular", texto: "Smartphones y celulares viejos, aunque tengan la pantalla rota." },
-  { img: "cat-notebook", nombre: "Notebook", texto: "Notebooks y computadoras, con o sin cargador." },
-  { img: "cat-tablet", nombre: "Tablet", texto: "Tablets y lectores de libros electrónicos." },
-  { img: "cat-consola", nombre: "Consola", texto: "Consolas, joysticks y accesorios de juego." },
-  { img: "cat-monitor", nombre: "Monitor", texto: "Monitores y pantallas de computadora." },
-  { img: "cat-otros", nombre: "Otros", texto: "Routers, placas, cargadores y otros electrónicos." },
+  { img: "cat-celular", nombre: "Celular", categoria: "celular", texto: "Aunque tenga la pantalla rota o no prenda." },
+  {
+    img: "cat-notebook",
+    nombre: "Notebook",
+    categoria: "notebook",
+    texto: "Con o sin cargador, aunque esté lenta o con la batería agotada.",
+  },
+  { img: "cat-tablet", nombre: "Tablet", categoria: "tablet", texto: "Tablets y lectores de libros electrónicos." },
+  { img: "cat-consola", nombre: "Consola", categoria: "consola", texto: "Consolas, joysticks y accesorios." },
+  { img: "cat-monitor", nombre: "Monitor", categoria: "monitor", texto: "Monitores y pantallas de computadora." },
+  {
+    img: "cat-otros",
+    nombre: "Otros",
+    categoria: "otros",
+    texto: "Routers, placas, cargadores y lo que no sabés dónde poner.",
+  },
 ];
 
-const OTROS = [
-  { nombre: "Accesorios y cargadores", texto: "Cargadores, cables, fuentes, mouse y teclados." },
-  { nombre: "Audio", texto: "Auriculares, parlantes y equipos de música." },
-  { nombre: "Pequeños electrodomésticos", texto: "Pavas eléctricas, secadores, licuadoras y similares." },
-];
+const OTROS = ["Cargadores y cables", "Mouse y teclados", "Auriculares", "Parlantes", "Pequeños electrodomésticos"];
 
 export function Dispositivos() {
   return (
-    <section id="dispositivos" className={`section ${styles.section}`} aria-labelledby="dispositivos-title">
+    <section id="dispositivos" className="section" aria-labelledby="dispositivos-title">
       <div className="container">
-        <span className="eyebrow">Dispositivos</span>
-        <h2 id="dispositivos-title" className="sectionTitle">
-          ¿Qué podés publicar o descartar?
-        </h2>
-        <p className="sectionLead">
-          Casi todo lo que se enchufa o lleva batería. Si sirve, se vende. Si no, te decimos dónde dejarlo.
-        </p>
-
-        <ul className={styles.grid}>
-          {CATEGORIAS.map((c) => (
-            <li key={c.img} className={`${styles.card} reveal`}>
-              <Image
-                src={`/img/${c.img}.webp`}
-                alt={`${c.nombre} usado`}
-                width={800}
-                height={800}
-                loading="lazy"
-                sizes="(min-width: 900px) 30vw, (min-width: 560px) 45vw, 90vw"
-                className={styles.img}
-              />
-              <h3>{c.nombre}</h3>
-              <p>{c.texto}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className={styles.otros}>
-          <h3>En «Otros» también entran</h3>
-          <ul>
-            {OTROS.map((o) => (
-              <li key={o.nombre}>
-                <strong>{o.nombre}.</strong> {o.texto}
-              </li>
-            ))}
-          </ul>
-          <p className={styles.pilas}>
-            <strong>Pilas y baterías:</strong> no se venden, pero el tasador te muestra dónde dejarlas.{" "}
-            <a href="#pilas">Ver más</a>
+        <div className={styles.cabecera}>
+          <div>
+            <Eyebrow>03 · Qué entra</Eyebrow>
+            <h2 id="dispositivos-title" className="sectionTitle">
+              ¿Qué podés tasar?
+            </h2>
+          </div>
+          <p className={styles.lead}>
+            Casi todo lo que se enchufa o lleva batería. Si sirve, se vende. Si no, te mostramos dónde dejarlo.
           </p>
         </div>
+
+        <Carrusel etiqueta="Categorías de dispositivos">
+          {CATEGORIAS.map((c) => {
+            const desde = desdePorCategoria(c.categoria);
+            return (
+              <li key={c.img} className={styles.item}>
+                <div className={styles.imgWrap}>
+                  <Image
+                    src={`/img/${c.img}.webp`}
+                    alt={`${c.nombre} usado`}
+                    width={800}
+                    height={800}
+                    loading="lazy"
+                    sizes="(min-width: 1000px) 18vw, (min-width: 640px) 30vw, 46vw"
+                    className={`${styles.img} fundido`}
+                  />
+                </div>
+                <h3>{c.nombre}</h3>
+                <p>{c.texto}</p>
+                {desde !== null && <span className={styles.dato}>Desde {formatoPesos(desde)}</span>}
+              </li>
+            );
+          })}
+        </Carrusel>
+
+        <div className={styles.otros}>
+          <span className={styles.otrosLabel}>También entran:</span>
+          <ul>
+            {OTROS.map((o) => (
+              <li key={o}>{o}</li>
+            ))}
+          </ul>
+        </div>
+
+        <p className={styles.pilas}>
+          <IconoPila className={styles.pilasIcono} />
+          <span>
+            Las pilas y baterías sueltas no se venden, pero tampoco van a la basura.{" "}
+            <a href="#pilas" className="btnLink">
+              Ver dónde dejarlas →
+            </a>
+          </span>
+        </p>
       </div>
     </section>
   );

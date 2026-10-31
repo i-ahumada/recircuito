@@ -1,5 +1,4 @@
 .section {
-  background: var(--bg);
   padding-top: 0;
 }
 
@@ -10,10 +9,6 @@
 .img {
   width: 100%;
   height: auto;
-}
-
-.heroGrid {
-  position: relative;
 }
 
 .cifras {
@@ -28,7 +23,7 @@
 
 .cifra {
   padding-left: 1rem;
-  border-left: 4px solid var(--secondary);
+  border-left: 4px solid var(--sprout);
 }
 
 .cifra dt {
@@ -36,15 +31,15 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
+  font-variant-numeric: tabular-nums;
 }
 
 .cifra dd {
   margin: 0.25rem 0 0;
-  display: grid;
-  gap: 0.25rem;
 }
 
 .fuente {
+  margin-top: 1rem;
   font-size: 0.8125rem;
   color: var(--ink-soft);
 }
@@ -56,7 +51,7 @@
 /* En escritorio, la imagen ocupa el fondo a la izquierda y las cifras el tercio derecho. */
 @media (min-width: 900px) {
   .hero {
-    min-height: min(56vw, 860px);
+    min-height: min(56vw, 820px);
     display: flex;
     align-items: center;
     padding-block: 4rem;
@@ -93,28 +88,104 @@
 
 @media (min-width: 900px) {
   .bloques {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     align-items: start;
   }
 }
 
-.pilas,
-.proximamente {
+/* ---------- Calculadora ---------- */
+.calculadora,
+.pilas {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
   justify-items: start;
   padding: clamp(1.25rem, 4vw, 2rem);
   border-radius: var(--radius-lg);
+  background: var(--surface);
 }
 
-.pilas > *,
-.proximamente > * {
+.calculadora > *,
+.pilas > * {
   max-width: 100%;
 }
 
-.pilas {
+.calculadora h3,
+.pilas h3 {
+  font-size: 1.5rem;
+}
+
+.contadores {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (min-width: 520px) {
+  .contadores {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contadores li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.contadorNombre {
+  font-weight: 600;
+}
+
+.contador {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.contador button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
   background: var(--surface);
-  border: 2px solid var(--secondary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.contador button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.contador output {
+  min-width: 2ch;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.calcResultado {
+  font-size: 1.125rem;
+}
+
+.calcResultado strong {
+  font-size: 1.5rem;
+  color: var(--sprout-ink);
+}
+
+/* ---------- Pilas ---------- */
+.pilas {
+  border: 2px solid var(--sprout);
 }
 
 .pilas > :last-child {
@@ -125,22 +196,23 @@
   width: auto;
 }
 
-.pilas h3,
-.proximamente h3 {
-  font-size: 1.5rem;
-}
-
+/* ---------- Próximamente ---------- */
 .proximamente {
-  background: var(--primary-soft);
-  border: 2px dashed var(--primary);
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
 }
 
 .badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
+  padding: 0.125rem 0.625rem;
   border-radius: 999px;
   background: var(--primary);
-  font-size: 0.8125rem;
+  color: var(--ink);
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;

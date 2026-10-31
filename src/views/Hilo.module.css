@@ -1,0 +1,60 @@
+.hilo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+.linea {
+  fill: none;
+  stroke: var(--sprout);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 4px var(--sprout-glow));
+}
+
+/* Se dibuja con el scroll. Sin soporte o con reduced motion queda completa. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .linea {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: dibujar linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes dibujar {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Brillo que recorre el último tramo cuando termina una tasación. */
+.brillo {
+  fill: none;
+  stroke: #7ff0c4;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 0.18 1;
+  stroke-dashoffset: 0.18;
+  filter: drop-shadow(0 0 8px var(--sprout));
+  animation: recorrer 1.4s ease-in-out forwards;
+}
+
+@keyframes recorrer {
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brillo {
+    display: none;
+  }
+}

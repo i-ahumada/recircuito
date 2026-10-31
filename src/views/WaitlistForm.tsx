@@ -47,7 +47,7 @@ export function WaitlistForm({
           width={200}
           height={200}
           loading="lazy"
-          className={styles.exitoImg}
+          className={`${styles.exitoImg} fundido`}
         />
         <p className={styles.exitoTexto}>¡Listo! Te avisamos cuando lancemos.</p>
       </div>
@@ -79,7 +79,7 @@ export function WaitlistForm({
         />
         <button
           type="submit"
-          className="btn btnCoral"
+          className={`btn btnSecundario ${styles.boton}`}
           disabled={enviando || (conAceptacion && !acepta)}
           aria-busy={enviando}
         >

@@ -17,7 +17,7 @@ export default function NotFound() {
         height={893}
         loading="lazy"
         sizes="360px"
-        className={styles.img}
+        className={`${styles.img} fundido`}
       />
       <h1 className={styles.titulo}>Acá no hay nada… todavía</h1>
       <p className={styles.sub}>La página que buscás no existe o se mudó.</p>

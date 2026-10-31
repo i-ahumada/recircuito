@@ -1,36 +1,33 @@
-.section {
-  background: var(--bg);
+/* ---------- Pasos ---------- */
+.scrolly {
+  margin-top: 2.5rem;
+}
+
+.fija {
+  display: none;
 }
 
 .pasos {
-  margin: 3rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 2rem;
-}
-
-@media (min-width: 900px) {
-  .pasos {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-  }
+  gap: 2.5rem;
 }
 
 .paso {
   display: grid;
-  align-content: start;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
-.img {
+.pasoImg {
   width: 100%;
-  max-width: 420px;
+  max-width: 360px;
   margin-inline: auto;
   aspect-ratio: 1;
 }
 
-.texto {
+.pasoTexto {
   display: grid;
   gap: 0.5rem;
 }
@@ -38,53 +35,184 @@
 .num {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--primary);
+  background: var(--sprout);
+  box-shadow: 0 0 0 5px var(--sprout-glow);
   font-weight: 800;
 }
 
-.texto h3 {
-  font-size: 1.375rem;
+.pasoTexto h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
 }
 
-.texto p {
+.pasoTexto p {
+  font-size: 1.125rem;
   color: var(--ink-soft);
+  max-width: 30rem;
 }
 
-.extras {
+@media (min-width: 900px) {
+  .scrolly {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 1rem;
+  }
+
+  .fija {
+    display: grid;
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+    height: calc(100svh - var(--header-h) - 4rem);
+    max-height: 560px;
+    align-self: start;
+  }
+
+  .fijaImg {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .fijaImg[data-activa="true"] {
+    opacity: 1;
+  }
+
+  .pasoImg {
+    display: none;
+  }
+
+  .pasos {
+    gap: 0;
+  }
+
+  .paso {
+    min-height: 70svh;
+    align-content: center;
+  }
+
+  .pasoTexto {
+    opacity: 0.35;
+    transition: opacity 0.4s ease;
+  }
+
+  .paso[data-activo="true"] .pasoTexto {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pasoTexto {
+    opacity: 1 !important;
+  }
+}
+
+/* ---------- Después ---------- */
+.subtitulo {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+}
+
+.despues {
   margin-top: 3rem;
+}
+
+.destinos {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
   display: grid;
   gap: 1rem;
 }
 
 @media (min-width: 800px) {
-  .extras {
+  .destinos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.destino {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.destinoIcono {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 12px;
+  background: var(--sprout-soft);
+  color: var(--sprout-ink);
+}
+
+.destino h4 {
+  font-size: 1.25rem;
+}
+
+.destino p {
+  color: var(--ink-soft);
+}
+
+.cobro {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--primary-soft);
+  border-left: 5px solid var(--primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* ---------- Checklist ---------- */
+.checklist {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 2px dashed var(--border);
+}
+
+.checklist ul {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 800px) {
+  .checklist ul {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-.extra {
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  display: grid;
-  gap: 0.5rem;
-  align-content: start;
+.checklist li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-weight: 500;
 }
 
-.extra h3 {
-  font-size: 1.25rem;
-  line-height: 1.25;
+.checklist li::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 6px;
+  border: 2px solid var(--sprout-ink);
+  flex-shrink: 0;
 }
 
-.extraDescarte {
-  background: var(--secondary-soft);
-  border: 2px solid var(--secondary);
-}
-
-.extraModelo {
-  background: var(--primary-soft);
-  border: 2px solid var(--primary);
+.probalo {
+  display: inline-block;
+  margin-top: 2rem;
 }

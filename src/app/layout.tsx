@@ -11,7 +11,7 @@ const outfit = Outfit({
 
 const siteUrl = process.env.SITE_URL ?? "http://localhost:3000";
 const descripcion =
-  "Tasá con IA ese celular, notebook o tablet que ya no usás y vendéselo a técnicos y empresas verificados. Publicar es gratis. Si no tiene valor, te mostramos dónde dejarlo.";
+  "Tasá con IA ese celular, notebook o tablet que ya no usás y vendéselo a compradores verificados. Publicar es gratis. Si no tiene valor, te mostramos dónde dejarlo.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

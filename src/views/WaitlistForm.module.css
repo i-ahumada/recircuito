@@ -82,6 +82,15 @@
   color: #ffb4a3;
 }
 
+.form[data-tono="oscuro"] .boton {
+  background: #fff;
+  color: var(--ink);
+}
+
+.form[data-tono="oscuro"] .boton:hover:not(:disabled) {
+  background: var(--sprout-soft);
+}
+
 .form[data-tono="oscuro"] .input {
   border-color: transparent;
 }

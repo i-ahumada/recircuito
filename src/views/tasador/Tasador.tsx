@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { EVENTO_TASADO } from "../Hilo";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { useTasacion } from "@/hooks/useTasacion";
 import { WaitlistForm } from "../WaitlistForm";
@@ -34,6 +35,10 @@ export function Tasador() {
   useEffect(() => {
     if (pasoAnterior.current !== estado.paso && estado.paso !== "analizando" && estado.paso !== "estimando") {
       panelRef.current?.focus({ preventScroll: true });
+    }
+    // El cierre visual de la página: el hilo se completa y el brote final pulsa.
+    if (pasoAnterior.current !== "resultado" && estado.paso === "resultado") {
+      window.dispatchEvent(new Event(EVENTO_TASADO));
     }
     pasoAnterior.current = estado.paso;
   }, [estado.paso]);

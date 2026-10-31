@@ -1,6 +1,6 @@
 # ReCircuito
 
-Landing y MVP de ReCircuito, un marketplace que conecta a quienes quieren sacarse de encima dispositivos electrónicos en desuso con compradores validados (técnicos, empresas y particulares).
+Landing y MVP de ReCircuito, un marketplace que conecta a quienes quieren sacarse de encima dispositivos electrónicos en desuso con compradores verificados.
 
 El centro de la landing es un **tasador con IA**. Subís una foto, la IA identifica el dispositivo y te hace 2 o 3 preguntas. Con eso, el servidor calcula un rango de precio con reglas fijas. Si el objeto no tiene valor de reventa, te muestra un mapa con puntos de descarte. Como el marketplace todavía no existe, la landing capta interesados con una **lista de espera**.
 

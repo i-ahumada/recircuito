@@ -8,8 +8,8 @@ export function Footer() {
       <div className="container">
         <div id="lista-espera" className={styles.waitlist}>
           <div>
-            <h2 className={styles.titulo}>Sumate a la lista de espera</h2>
-            <p className={styles.sub}>Te avisamos apenas abramos el marketplace. Nada más.</p>
+            <h2 className={styles.titulo}>El marketplace abre pronto.</h2>
+            <p className={styles.sub}>Dejanos tu email y te avisamos el día que puedas vender. Nada más.</p>
           </div>
           <WaitlistForm origen="footer" cta="Sumarme" tono="oscuro" />
         </div>
@@ -21,9 +21,6 @@ export function Footer() {
           </div>
           <nav aria-label="Pie de página">
             <ul className={styles.links}>
-              <li>
-                <a href="#tasador">Tasador</a>
-              </li>
               {NAV.map((item) => (
                 <li key={item.href}>
                   <a href={item.href}>{item.label}</a>
