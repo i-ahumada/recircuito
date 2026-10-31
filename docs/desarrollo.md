@@ -31,7 +31,9 @@ Otros scripts:
 Se usa el campo `models` de OpenRouter para el fallback automático: si el primero falla, prueba el siguiente.
 
 - **Testing (sin créditos):** `OPENROUTER_MODELS=nvidia/nemotron-3.5-super-vl:free`
-- **Producción (con créditos):** `OPENROUTER_MODELS=google/gemini-3.5-flash-lite,nvidia/nemotron-3.5-super-vl:free`
+- **Producción (con créditos):** `OPENROUTER_MODELS=google/gemini-2.5-flash-lite,nvidia/nemotron-3.5-super-vl:free`
+
+  Se usa Gemini **2.5** Flash Lite y no la 3.5 porque la 3.5 no permite apagar el razonamiento: aun con esfuerzo mínimo tarda 2,4–2,9 s con una foto, contra 1,5 s de la 2.5, que además cuesta entre 3 y 6 veces menos. Para clasificar un dispositivo y redactar textos cortos, razonar no aporta.
 
 > La app prueba los modelos **de a uno y en orden**. Si uno falla por cualquier motivo (sin saldo, cupo lleno, caído, timeout), pasa al siguiente. No usa el fallback `models` de OpenRouter porque manda la misma configuración a todos los modelos y no pasa al siguiente ante un 402. Por eso conviene que la lista de producción termine siempre con un modelo gratuito.
 >
