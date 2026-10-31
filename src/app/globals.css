@@ -17,7 +17,6 @@
   --sprout-ink: #0a7a52;
   /* Colores del logo (muestreados de assets/img/logo.jpeg). Blanco sobre --brand-blue: 7:1. */
   --brand-blue: #0052c4;
-  --brand-blue-hover: #00449f;
   --brand-green: #05d92d;
   --brand-green-glow: rgb(5 217 45 / 0.22);
   --brand-navy: #022c68;
@@ -225,6 +224,7 @@ main .container {
   text-decoration: none;
   cursor: pointer;
   transition:
+    background-position 0.4s ease,
     background-color 0.2s ease,
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -235,15 +235,25 @@ main .container {
   opacity: 0.6;
 }
 
-/* Acción principal: azul del logo con un brillo verde muy suave. */
+/* Acción principal: degradé del azul del logo a un verde oscuro, con brillo verde suave.
+   - Casi horizontal (115°) y con el azul sostenido al principio: se lee como un solo color que vira,
+     no como dos manchas.
+   - Interpolado en OKLab para que el medio no se ensucie (en sRGB pasa por un gris azulado).
+   - El verde del final es más oscuro que el del logo para que el blanco no baje de 4,8:1 en
+     ningún punto; el verde brillante del logo queda para el brillo.
+   - Al pasar el mouse el degradé se corre un poco hacia el verde, sin cambiar de color de golpe. */
 .btnPrimario {
-  background: var(--brand-blue);
   color: #fff;
+  background-color: var(--brand-blue);
+  background-image: linear-gradient(115deg, var(--brand-blue) 20%, #08844a 100%);
+  background-image: linear-gradient(115deg in oklab, var(--brand-blue) 20%, #08844a 100%);
+  background-size: 140% 100%;
+  background-position: 0% 50%;
   box-shadow: 0 4px 18px var(--brand-green-glow);
 }
 
 .btnPrimario:hover:not(:disabled) {
-  background: var(--brand-blue-hover);
+  background-position: 100% 50%;
   box-shadow: 0 6px 22px rgb(5 217 45 / 0.3);
   transform: translateY(-1px);
 }
