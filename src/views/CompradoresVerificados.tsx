@@ -42,7 +42,6 @@ export function CompradoresVerificados() {
           width={800}
           height={800}
           caja={CAJAS.compradores}
-          brote
           fundido="fuerte"
           sizes="(min-width: 900px) 50vw, 100vw"
           className={styles.media}

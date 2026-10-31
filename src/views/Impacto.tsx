@@ -37,12 +37,11 @@ export function Impacto() {
             width={1600}
             height={893}
             caja={CAJAS.impacto}
-            brote
           fundido="fuerte"
             sizes="(min-width: 900px) 90vw, 150vw"
             className={styles.img}
           />
-          <div className={`${styles.cifras} superficie`} data-brote>
+          <div className={`${styles.cifras} superficie`}>
             <dl className={styles.lista}>
               {CIFRAS.map((c) => (
                 <div key={c.texto} className={styles.cifra}>

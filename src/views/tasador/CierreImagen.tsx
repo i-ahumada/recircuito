@@ -51,7 +51,6 @@ export function CierreImagen() {
           className={styles.broteFinal}
           data-pulso={pulsos > 0}
           style={enRecorte(CAJAS.cierre, BROTE.x, BROTE.y)}
-          data-brote="punta"
           aria-hidden="true"
         />
       </Recorte>

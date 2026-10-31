@@ -4,8 +4,7 @@
   left: 0;
   width: 100%;
   pointer-events: none;
-  /* Los brotes que se van de la pantalla se cortan en el borde, sin generar scroll lateral. */
-  overflow: hidden;
+  overflow: visible;
   z-index: 0;
 }
 
@@ -24,12 +23,6 @@
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
   }
-}
-
-/* Los brotes son más finos que el riel. */
-.rama {
-  stroke-width: 1.5;
-  opacity: 0.7;
 }
 
 /* Brillo que recorre el último tramo cuando termina una tasación. */
