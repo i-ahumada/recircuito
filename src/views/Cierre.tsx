@@ -12,7 +12,7 @@ export function Cierre() {
             <h2 id="cierre-title" className={styles.frase}>
               Lo que no usás, a alguien le sirve.
             </h2>
-            <a href="#tasador" className="btn btnCoral">
+            <a href="#tasador" className="btn btnPrimario">
               Tasá tu dispositivo
             </a>
           </div>

@@ -14,6 +14,7 @@ type Props = {
   /** Datos de la tasación que viajan junto con el email */
   dispositivo?: string;
   rango?: string;
+  precioARS?: number;
   /** Pide checkbox de aceptación (formulario del tasador) */
   conAceptacion?: boolean;
   /** Fondo oscuro (footer) */
@@ -25,6 +26,7 @@ export function WaitlistForm({
   cta = "Sumarme",
   dispositivo,
   rango,
+  precioARS,
   conAceptacion = false,
   tono = "claro",
 }: Props) {
@@ -36,7 +38,7 @@ export function WaitlistForm({
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (conAceptacion && !acepta) return;
-    void enviar({ email: email.trim(), origen, dispositivo, rango, ...(conAceptacion ? { acepta: true } : {}) });
+    void enviar({ email: email.trim(), origen, dispositivo, rango, precioARS, ...(conAceptacion ? { acepta: true } : {}) });
   }
 
   if (estado.tipo === "exito") {

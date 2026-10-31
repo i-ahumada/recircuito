@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { NAV } from "./Header";
 import styles from "./Footer.module.css";
 
@@ -7,7 +8,14 @@ export function Footer() {
       <div className="container">
         <div className={styles.bottom}>
           <div className={styles.marca}>
-            <span className={styles.logo}>ReCircuito</span>
+            <Image
+              src="/img/logo-blanco.webp"
+              alt="ReCircuito"
+              width={720}
+              height={165}
+              sizes="220px"
+              className={styles.logo}
+            />
             <p>Conectamos lo que ya no usás con quien le da una segunda vida.</p>
           </div>
           <nav aria-label="Pie de página">

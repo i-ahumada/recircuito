@@ -22,7 +22,7 @@ export default function NotFound() {
       />
       <h1 className={styles.titulo}>Acá no hay nada… todavía</h1>
       <p className={styles.sub}>La página que buscás no existe o se mudó.</p>
-      <Link href="/" className="btn btnCoral">
+      <Link href="/" className="btn btnPrimario">
         Volver al inicio
       </Link>
     </main>

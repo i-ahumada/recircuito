@@ -39,6 +39,30 @@ function distanciaKm(a: [number, number], b: [number, number]) {
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
+/**
+ * Link de ruta con los parámetros de Google Maps URLs (api=1). Sin origen, Maps arranca
+ * desde la ubicación actual del teléfono; en el celular abre la app si está instalada.
+ */
+function urlRuta(destino: { lat: number; lng: number }, origen: [number, number] | null) {
+  const params = new URLSearchParams({ api: "1", destination: `${destino.lat},${destino.lng}` });
+  if (origen) params.set("origin", `${origen[0]},${origen[1]}`);
+  return `https://www.google.com/maps/dir/?${params}`;
+}
+
+function LinkRuta({ punto, origen }: { punto: Punto; origen: [number, number] | null }) {
+  return (
+    <a
+      href={urlRuta(punto, origen)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.ruta}
+      aria-label={`Cómo llegar a ${punto.nombre} en Google Maps (se abre en otra pestaña)`}
+    >
+      Cómo llegar ↗
+    </a>
+  );
+}
+
 function Recentrar({ lat, lng, zoom }: { lat: number; lng: number; zoom: number }) {
   const map = useMap();
   useEffect(() => {
@@ -132,6 +156,8 @@ export function MapaDescarte({ filtroInicial = "todos" }: { filtroInicial?: Filt
                     {p.horario}
                   </>
                 )}
+                <br />
+                <LinkRuta punto={p} origen={miUbicacion} />
               </Popup>
             </CircleMarker>
           ))}
@@ -139,7 +165,7 @@ export function MapaDescarte({ filtroInicial = "todos" }: { filtroInicial?: Filt
             <CircleMarker
               center={miUbicacion}
               radius={7}
-              pathOptions={{ color: "#fff", weight: 3, fillColor: "#ff6b4a", fillOpacity: 1 }}
+              pathOptions={{ color: "#fff", weight: 3, fillColor: "#0052c4", fillOpacity: 1 }}
             >
               <Popup>Estás acá</Popup>
             </CircleMarker>
@@ -156,6 +182,7 @@ export function MapaDescarte({ filtroInicial = "todos" }: { filtroInicial?: Filt
               {p.horario ? ` · ${p.horario}` : ""}
               {p.km !== null ? ` · a ${p.km.toFixed(1).replace(".", ",")} km` : ""}
             </span>
+            <LinkRuta punto={p} origen={miUbicacion} />
             <span className={styles.tipos}>
               {p.tipos.map((t) => (
                 <span key={t} className={styles.tipo} data-tipo={t}>

@@ -44,7 +44,7 @@ export function MobileMenu({ items }: Props) {
             </li>
           ))}
         </ul>
-        <a href="#tasador" className="btn btnCoral" onClick={cerrar}>
+        <a href="#tasador" className="btn btnPrimario" onClick={cerrar}>
           Tasá tu dispositivo
         </a>
       </nav>

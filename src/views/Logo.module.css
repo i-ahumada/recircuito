@@ -1,18 +1,11 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
   text-decoration: none;
-  color: var(--ink);
 }
 
-.mark {
-  width: 34px;
-  height: 38px;
-}
-
-.text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+/* El logo tiene proporción 720 × 165: con 40 px de alto queda en unos 175 px de ancho. */
+.img {
+  height: 40px;
+  width: auto;
 }

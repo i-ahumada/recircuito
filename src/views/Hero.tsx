@@ -27,7 +27,7 @@ export function Hero() {
           <div className={styles.ctas}>
             {/* Acá nace el hilo. */}
             <span className="nodo railNodo" data-hilo-nodo aria-hidden="true" />
-            <a href="#tasador" className="btn btnCoral">
+            <a href="#tasador" className="btn btnPrimario">
               Tasá tu dispositivo
             </a>
             <span className={styles.micro}>Gratis y sin registrarte.</span>

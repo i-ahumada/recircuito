@@ -33,7 +33,7 @@ export function PasoImagen({ estado, onArchivo, onCambiar, onTasar }: Props) {
         <div className={styles.preview}>
           <img src={estado.previewUrl} alt="Vista previa de la foto que vas a tasar" />
           <div className={styles.acciones}>
-            <button type="button" className="btn btnCoral" onClick={() => onTasar(estado.base64)}>
+            <button type="button" className="btn btnPrimario" onClick={() => onTasar(estado.base64)}>
               Tasar esta foto
             </button>
             <button type="button" className="btn btnGhost" onClick={onCambiar}>
@@ -65,7 +65,7 @@ export function PasoImagen({ estado, onArchivo, onCambiar, onTasar }: Props) {
           <div className={styles.acciones}>
             <button
               type="button"
-              className="btn btnCoral"
+              className="btn btnPrimario"
               onClick={() => subirRef.current?.click()}
               disabled={estado.tipo === "comprimiendo"}
             >

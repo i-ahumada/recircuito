@@ -15,9 +15,13 @@
   --sprout-glow: rgb(12 180 127 / 0.35);
   --sprout-soft: #d7f3e7;
   --sprout-ink: #0a7a52;
-  --coral: #ff6b4a;
-  --coral-soft: #ffe3dc;
-  --coral-hover: #ff8569;
+  /* Colores del logo (muestreados de assets/img/logo.jpeg). Blanco sobre --brand-blue: 7:1. */
+  --brand-blue: #0052c4;
+  --brand-blue-hover: #00449f;
+  --brand-green: #05d92d;
+  --brand-green-glow: rgb(5 217 45 / 0.22);
+  --brand-navy: #022c68;
+  --danger: #c62828;
   --danger-ink: #8a1c0a;
 
   --radius-sm: 10px;
@@ -231,19 +235,20 @@ main .container {
   opacity: 0.6;
 }
 
-/* Coral con texto oscuro: el blanco sobre #FF6B4A no llega a AA (2,8:1); el tinta sí (6,1:1). */
-.btnCoral {
-  background: var(--coral);
-  color: var(--ink);
-  box-shadow: 0 6px 16px rgb(255 107 74 / 0.28);
+/* Acción principal: azul del logo con un brillo verde muy suave. */
+.btnPrimario {
+  background: var(--brand-blue);
+  color: #fff;
+  box-shadow: 0 4px 18px var(--brand-green-glow);
 }
 
-.btnCoral:hover:not(:disabled) {
-  background: var(--coral-hover);
+.btnPrimario:hover:not(:disabled) {
+  background: var(--brand-blue-hover);
+  box-shadow: 0 6px 22px rgb(5 217 45 / 0.3);
   transform: translateY(-1px);
 }
 
-/* Acción secundaria (waitlist): el coral queda solo para tasar. */
+/* Acción secundaria (waitlist): el azul queda solo para tasar. */
 .btnSecundario {
   background: var(--ink);
   color: #fff;

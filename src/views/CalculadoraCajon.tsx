@@ -63,7 +63,7 @@ export function CalculadoraCajon() {
           </>
         )}
       </p>
-      <a href="#tasador" className="btn btnCoral">
+      <a href="#tasador" className="btn btnPrimario">
         Tasá el primero
       </a>
     </div>
