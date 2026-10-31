@@ -33,7 +33,9 @@ Se usa el campo `models` de OpenRouter para el fallback automático: si el prime
 - **Testing (sin créditos):** `OPENROUTER_MODELS=nvidia/nemotron-3.5-super-vl:free`
 - **Producción (con créditos):** `OPENROUTER_MODELS=google/gemini-3.5-flash-lite,nvidia/nemotron-3.5-super-vl:free`
 
-> Si el modelo pago se queda sin saldo, OpenRouter devuelve un **error 402** y no pasa solo al siguiente modelo. Para eso la app reintenta una vez **solo con los modelos gratuitos** de la lista (los que terminan en `:free`). Lo mismo con un 429 (cupo lleno). Por eso conviene que la lista de producción termine siempre con un modelo gratuito.
+> La app prueba los modelos **de a uno y en orden**. Si uno falla por cualquier motivo (sin saldo, cupo lleno, caído, timeout), pasa al siguiente. No usa el fallback `models` de OpenRouter porque manda la misma configuración a todos los modelos y no pasa al siguiente ante un 402. Por eso conviene que la lista de producción termine siempre con un modelo gratuito.
+>
+> El razonamiento se pide apagado para que responda rápido. Los modelos que no lo permiten (como `google/gemini-3.5-flash-lite`, que responde 400 "Reasoning is mandatory") se reintentan solos con esfuerzo mínimo, y la app lo recuerda hasta que se reinicia.
 
 Verificá que los IDs sigan existiendo en https://openrouter.ai/models antes de la demo.
 

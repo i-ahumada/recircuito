@@ -3,9 +3,10 @@ import type { z } from "zod";
 import { MENSAJES, ServiceError } from "./errors";
 
 const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-const TIMEOUT_MS = 25_000; // Heroku corta los requests a los 30 s
-const PRESUPUESTO_TOTAL_MS = 28_000; // el reintento tiene que entrar antes del corte
-const TIMEOUT_MINIMO_REINTENTO_MS = 8_000;
+const PRESUPUESTO_TOTAL_MS = 28_000; // Heroku corta los requests a los 30 s
+/** Tope por intento cuando todavía queda otro modelo atrás: le deja tiempo al respaldo. */
+const TIMEOUT_CON_RESPALDO_MS = 14_000;
+const TIMEOUT_MINIMO_INTENTO_MS = 6_000;
 
 type ContenidoUsuario =
   | string
@@ -26,7 +27,19 @@ function modelos(): string[] {
     .filter(Boolean);
 }
 
-const esGratuito = (m: string) => m.endsWith(":free");
+/**
+ * Razonamiento por modelo. Se pide apagado porque acá el modelo solo clasifica y redacta
+ * (los precios los calculan las reglas) y razonar tarda demasiado para el corte de Heroku.
+ * Algunos modelos (por ejemplo Gemini 3.5) no permiten apagarlo y responden 400: a esos se
+ * les pide el esfuerzo mínimo, y se recuerda para no volver a fallar mientras viva el proceso.
+ */
+const RAZONAMIENTO_APAGADO = { enabled: false } as const;
+const RAZONAMIENTO_MINIMO = { effort: "minimal" } as const;
+const conRazonamientoObligatorio = new Set<string>();
+const razonamientoPara = (modelo: string) =>
+  conRazonamientoObligatorio.has(modelo) ? RAZONAMIENTO_MINIMO : RAZONAMIENTO_APAGADO;
+
+class RazonamientoObligatorio extends Error {}
 
 /** Algunos modelos envuelven el JSON en ```json … ``` aunque se pida json_schema. */
 function extraerJson(texto: string): unknown {
@@ -35,6 +48,7 @@ function extraerJson(texto: string): unknown {
 }
 
 function errorPorStatus(status: number, detalle: string): ServiceError {
+  if (status === 400 && /reasoning is mandatory/i.test(detalle)) throw new RazonamientoObligatorio(detalle);
   if (status === 429) return new ServiceError("ia_limite", 503, MENSAJES.ia_limite);
   if (status === 402) return new ServiceError("ia_sin_saldo", 503, MENSAJES.ia_sin_saldo);
   console.error(`[openrouter] error ${status}: ${detalle.slice(0, 500)}`);
@@ -44,7 +58,7 @@ function errorPorStatus(status: number, detalle: string): ServiceError {
 async function llamarUnaVez<T>(
   pedido: Pedido<T>,
   apiKey: string,
-  models: string[],
+  modelo: string,
   timeoutMs: number,
 ): Promise<T> {
   let res: Response;
@@ -60,7 +74,7 @@ async function llamarUnaVez<T>(
         "X-Title": "ReCircuito",
       },
       body: JSON.stringify({
-        models,
+        model: modelo,
         messages: [
           { role: "system", content: pedido.system },
           { role: "user", content: pedido.user },
@@ -70,9 +84,7 @@ async function llamarUnaVez<T>(
           json_schema: { name: pedido.schemaName, strict: true, schema: pedido.jsonSchema },
         },
         temperature: 0.2,
-        // Los modelos con razonamiento tardan demasiado para el corte de 30 s de Heroku,
-        // y acá el modelo solo clasifica y redacta (los precios los calculan las reglas).
-        reasoning: { enabled: false },
+        reasoning: razonamientoPara(modelo),
       }),
     });
     // El timeout también puede saltar mientras se lee el cuerpo.
@@ -119,11 +131,12 @@ async function llamarUnaVez<T>(
 
 /**
  * Llama a OpenRouter con salida estructurada y valida con zod.
- * - Si la respuesta no es válida, reintenta una vez.
- * - Si un modelo pago se queda sin saldo (402) o con el cupo lleno (429), OpenRouter no pasa
- *   solo al siguiente de la lista: se reintenta una vez únicamente con los modelos gratuitos
- *   de OPENROUTER_MODELS, para no perder la tasación.
- * - Los timeouts no se reintentan.
+ *
+ * Prueba los modelos de OPENROUTER_MODELS de a uno y en orden, cada uno con su configuración
+ * de razonamiento (por eso no se usa el fallback `models` de OpenRouter, que manda la misma
+ * a todos y además no pasa al siguiente ante un 402 sin saldo). Ante cualquier error de un
+ * modelo se pasa al siguiente; con el último se reintenta una vez si la respuesta no cumplió
+ * el schema. Todo tiene que entrar en el corte de 30 s de Heroku.
  */
 export async function completarEstructurado<T>(pedido: Pedido<T>): Promise<T> {
   const apiKey = process.env.OPENROUTER_API_KEY;
@@ -132,22 +145,39 @@ export async function completarEstructurado<T>(pedido: Pedido<T>): Promise<T> {
     throw new ServiceError("ia_no_configurada", 503, MENSAJES.ia_no_configurada);
   }
   const inicio = Date.now();
-  try {
-    return await llamarUnaVez(pedido, apiKey, models, TIMEOUT_MS);
-  } catch (err) {
-    const restante = PRESUPUESTO_TOTAL_MS - (Date.now() - inicio);
-    if (!(err instanceof ServiceError) || restante < TIMEOUT_MINIMO_REINTENTO_MS) throw err;
-    const timeout = Math.min(TIMEOUT_MS, restante);
+  const restante = () => PRESUPUESTO_TOTAL_MS - (Date.now() - inicio);
 
-    const gratuitos = models.filter(esGratuito);
-    const hayPagos = gratuitos.length < models.length;
-    if ((err.codigo === "ia_sin_saldo" || err.codigo === "ia_limite") && hayPagos && gratuitos.length > 0) {
-      console.warn(`[openrouter] ${err.codigo} con el modelo pago: se reintenta con ${gratuitos.join(", ")}`);
-      return llamarUnaVez(pedido, apiKey, gratuitos, timeout);
+  let ultimoError: unknown = new ServiceError("ia_error", 502, MENSAJES.ia_error);
+  let reintentoUsado = false;
+
+  for (let i = 0; i < models.length; i++) {
+    const modelo = models[i];
+    const esUltimo = i === models.length - 1;
+
+    for (let intento = 0; intento < 3; intento++) {
+      if (restante() < TIMEOUT_MINIMO_INTENTO_MS) throw ultimoError;
+      const timeout = esUltimo ? restante() : Math.min(TIMEOUT_CON_RESPALDO_MS, restante());
+      try {
+        return await llamarUnaVez(pedido, apiKey, modelo, timeout);
+      } catch (err) {
+        if (err instanceof RazonamientoObligatorio && !conRazonamientoObligatorio.has(modelo)) {
+          conRazonamientoObligatorio.add(modelo);
+          continue; // mismo modelo, ahora con razonamiento mínimo
+        }
+        ultimoError =
+          err instanceof ServiceError ? err : new ServiceError("ia_error", 502, MENSAJES.ia_error);
+        const codigo = (ultimoError as ServiceError).codigo;
+        if (!esUltimo) {
+          console.warn(`[openrouter] ${modelo} falló (${codigo}), se prueba con ${models[i + 1]}`);
+          break;
+        }
+        if (codigo === "ia_respuesta_invalida" && !reintentoUsado) {
+          reintentoUsado = true;
+          continue;
+        }
+        throw ultimoError;
+      }
     }
-    if (err.codigo === "ia_respuesta_invalida") {
-      return llamarUnaVez(pedido, apiKey, models, timeout);
-    }
-    throw err;
   }
+  throw ultimoError;
 }
