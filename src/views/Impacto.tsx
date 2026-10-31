@@ -7,8 +7,14 @@ import { Recorte } from "./Recorte";
 
 type Fuente = { texto: string; url?: string };
 
-const MANUAL_RAEE: Fuente = { texto: "Manual de Gestión Integral de RAEE, Ministerio de Ambiente de la Nación" };
-const ESTUDIO_EMPLEO: Fuente = { texto: "RAEE y empleo en la Argentina (2024)" };
+const MANUAL_RAEE: Fuente = {
+  texto: "Manual de Gestión Integral de RAEE, Ministerio de Ambiente de la Nación",
+  url: "https://www.argentina.gob.ar/ambiente/control/manual-raee",
+};
+const ESTUDIO_EMPLEO: Fuente = {
+  texto: "RAEE y empleo en la Argentina (OIT, 2020)",
+  url: "https://www.ilo.org/es/media/401831/download",
+};
 const GCBA: Fuente = {
   texto: "Gobierno de la Ciudad de Buenos Aires",
   url: "https://buenosaires.gob.ar/gcaba_historico/vicejefatura/ambiente/residuos-especiales/residuos-de-aparatos-electricos-y-electronicos-raee",
