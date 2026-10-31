@@ -63,6 +63,7 @@ scripts/
   calcular-precios.mjs               Genera precios-referencia.json desde las muestras
   importar-puntos-verdes.mjs         Genera puntos-descarte.json desde el dataset de la Ciudad
   convert-images.mjs                 Convierte assets/img/*.jpeg a public/img/*.webp
+  generar-logo.mjs                   Variantes del logo y favicons desde assets/img/logo.jpeg
 docs/                                Guías de desarrollo, datos y deploy
 ```
 

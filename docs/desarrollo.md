@@ -11,7 +11,8 @@ Otros scripts:
 - `npm run build`: build de producción.
 - `npm start`: `next start -p $PORT` (en local, `PORT=3000 npm start`).
 - `npm run lint`: ESLint.
-- `npm run images`: regenera `public/img/*.webp` desde `assets/img/*.jpeg`. Solo cambia el formato y el tamaño (máximo 1600 px; las cuadradas, 800 px). Los `.webp` ya están commiteados, así que solo hace falta correrlo si cambiás una imagen. `vacio-ofertas.jpeg` se publica como `gracias-lista-espera.webp`.
+- `npm run images`: regenera `public/img/*.webp` desde `assets/img/*.jpeg`. Solo cambia el formato y el tamaño (máximo 1600 px; las cuadradas, 800 px). Los `.webp` ya están commiteados, así que solo hace falta correrlo si cambiás una imagen. `vacio-ofertas.jpeg` se publica como `gracias-lista-espera.webp`. No toca `logo.jpeg`.
+- `npm run logo`: genera las variantes del logo desde `assets/img/logo.jpeg` (fondo blanco → transparente): `public/img/logo.webp`, `logo-blanco.webp` (para fondos oscuros), `logo-isotipo.webp`, y los favicons `src/app/icon.png`, `apple-icon.png` y `favicon.ico`. Si cambiás el logo y se mueve el dibujo, actualizá los recortes al principio de `scripts/generar-logo.mjs`.
 
 ## Variables de entorno
 

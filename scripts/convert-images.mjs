@@ -8,7 +8,8 @@ const SRC = "assets/img";
 const OUT = "public/img";
 const SKIP = /^Gemini_Generated_Image_/;
 const RENAME = { "vacio-ofertas": "gracias-lista-espera" };
-const NO_USAR = new Set(["vacio-publicaciones"]);
+// logo.jpeg tiene fondo blanco: sus variantes con transparencia las genera scripts/generar-logo.mjs.
+const NO_USAR = new Set(["vacio-publicaciones", "logo"]);
 
 await mkdir(OUT, { recursive: true });
 

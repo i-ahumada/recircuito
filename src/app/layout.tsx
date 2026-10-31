@@ -41,7 +41,6 @@ export const metadata: Metadata = {
     description: descripcion,
     images: ["/img/hero-cajon.webp"],
   },
-  icons: { icon: "/icon.svg" },
 };
 
 export const viewport: Viewport = {

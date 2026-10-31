@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "lint": "eslint .",
-    "images": "node scripts/convert-images.mjs"
+    "images": "node scripts/convert-images.mjs",
+    "logo": "node scripts/generar-logo.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
